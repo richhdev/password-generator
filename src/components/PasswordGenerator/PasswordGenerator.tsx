@@ -17,7 +17,7 @@ import {
   ErrorMsg,
   ClipboardMsg,
 } from "./_components";
-import { generateString } from "./_utils";
+import generateString from "@/utils/generate-string";
 
 const PasswordGenerator = () => {
   const [password, setPassword] = useState("");
