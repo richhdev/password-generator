@@ -109,11 +109,11 @@ const PasswordGenerator = () => {
               <LengthInput
                 id="length"
                 type="number"
-                value={passwordLength}
+                defaultValue={passwordLength}
                 min={minLength}
                 max={maxLength}
                 step={1}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                onBlur={(e: ChangeEvent<HTMLInputElement>) => {
                   const val = validateLength(e.target.value);
                   setPasswordLength(val);
                 }}
