@@ -65,7 +65,8 @@ const PasswordGenerator = () => {
       <ContentOuter>
         <Content>
           <PasswordInput
-            id="passwordInput"
+            id="input-password"
+            className="input-password"
             value={errorOption ? "" : password}
             readOnly
           />
@@ -74,6 +75,8 @@ const PasswordGenerator = () => {
           </PasswordInputLabel>
 
           <Button
+            id="button-generate"
+            className="button-generate"
             onClick={() => {
               if (errorOption) return;
 
@@ -115,7 +118,9 @@ const PasswordGenerator = () => {
                 step={1}
                 onBlur={(e: ChangeEvent<HTMLInputElement>) => {
                   const val = validateLength(e.target.value);
-                  setPasswordLength(val);
+                  if (e.target.value !== val.toString())
+                    e.target.value = val.toString();
+                  setPasswordLength(Number(val));
                 }}
               />
             </OptionContainer>

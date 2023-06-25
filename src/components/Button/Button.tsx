@@ -18,6 +18,7 @@ const Button = (props: ButtonProps) => {
   return (
     <ButtonOuter $loading={props.loading} disabled={props.disabled}>
       <ButtonInner
+        id={props.id}
         className={`${isClicked ? "isClicked" : ""}`}
         onClick={() => {
           if (!props.loading || !props.disabled) setIsClicked(true);

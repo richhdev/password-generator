@@ -1,4 +1,5 @@
 export type ButtonProps = {
+  id?: string;
   className?: string;
   as?: "button" | "a";
   onClick?: Function;
