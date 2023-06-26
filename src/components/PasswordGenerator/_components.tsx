@@ -1,7 +1,7 @@
 import { ChangeEventHandler } from "react";
 import styled, { css } from "styled-components";
 import { fz } from "@/settings/text";
-import Text from "@/components/Text";
+import Text, { Small } from "@/components/Text";
 import Input from "@/components/Input";
 import Checkbox from "@/components/Checkbox";
 
@@ -16,21 +16,35 @@ export const HeadingText = styled(Text)`
   margin-bottom: ${fz.h3Responsive};
 `;
 
-export const ContentOuter = styled.div`
+export const Inner = styled.div`
   position: relative;
   padding: 8px;
 `;
 
-export const Content = styled.div`
+export const OptionsContainer = styled.div.attrs(() => {})<{ show: boolean }>`
   position: relative;
   z-index: 2;
-  background-color: ${(props) => props.theme.backgroundColor || "#fff"};
-  padding: calc(${fz.pResponsive}*2);
+  /* background-color: ${(props) => props.theme.backgroundColor || "#fff"}; */
+  padding: 0 calc(${fz.pResponsive}*2);
   border-radius: 10px;
   box-shadow: 0 0 64px 0px rgb(0 0 0 / 25%);
   width: 100%;
   max-width: 460px;
   text-align: center;
+
+  overflow: hidden;
+
+  height: 0;
+  opacity: 0;
+  transition: all 300ms ease;
+
+  ${(props) =>
+    props.show &&
+    css`
+      height: 180px;
+      padding: calc(${fz.pResponsive}*2);
+      opacity: 1;
+    `}
 `;
 
 export const PasswordInputLabel = styled.label`
@@ -54,7 +68,7 @@ export const PasswordInput = styled(Input)`
 export const OptionsGroup = styled.div`
   width: 100%;
   max-width: 370px;
-  margin-top: calc(${fz.pResponsive}*2);
+  /* margin-top: calc(${fz.pResponsive}*2); */
   display: flex;
   justify-content: space-between;
 
@@ -92,6 +106,7 @@ export function Option(props: {
       <OptionLabel htmlFor={props.id}>{props.label}</OptionLabel>
       <Checkbox
         id={props.id}
+        label={props.label}
         name={props.label}
         checked={props.checked}
         onChange={props.onChange}
@@ -120,9 +135,10 @@ export const MessageContainer = styled.div`
   width: 100%;
   max-width: 460px;
   text-align: center;
+  pointer-events: none;
 `;
 
-const Msg = styled(Text).attrs(() => {})<{ active: boolean }>`
+const Msg = styled(Small).attrs(() => {})<{ active: boolean }>`
   display: inline-block;
   background-color: green;
   padding: 0 ${fz.pResponsive};
@@ -146,4 +162,12 @@ export const ClipboardMsg = styled(Msg)`
 
 export const ErrorMsg = styled(ClipboardMsg)`
   background-color: #e74545;
+`;
+
+export const ButtonGroup = styled.div`
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
 `;

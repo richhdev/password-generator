@@ -2,25 +2,29 @@ import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { ff, fz } from "@/settings/text";
 import Button from "@/components/Button";
 import {
-  Content,
-  ContentOuter,
   HeadingText,
   LengthInput,
   OptionContainer,
   OptionsGroup,
   OptionLabel,
   Outer,
-  PasswordInput,
-  PasswordInputLabel,
   Option,
   MessageContainer,
   ErrorMsg,
   ClipboardMsg,
+  ButtonGroup,
+  Inner,
+  OptionsContainer,
 } from "./_components";
 import { generateString } from "./_utils";
+import TypedText from "../TypedText";
+import Text from "../Text";
 
 const PasswordGenerator = () => {
+  console.log("mount");
   const [password, setPassword] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
 
   const [clipboardMsg, setClipboardMsg] = useState(false);
   const clipMsgTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -67,31 +71,61 @@ const PasswordGenerator = () => {
 
   return (
     <Outer>
-      <HeadingText as="h1" ff={ff.mono} fz={fz.h4Responsive}>
+      {/* <HeadingText as="h1" ff={ff.mono} fz={fz.h4Responsive}>
         {`<PasswordGenerator />`}
-      </HeadingText>
+      </HeadingText> */}
 
-      <ContentOuter>
-        <Content>
-          <PasswordInput
-            id="passwordInput"
-            value={errorOption ? "" : password}
-            readOnly
+      <Inner>
+        <Text ff={ff.mono} fz={fz.h1} style={{ textAlign: "center" }}>
+          &nbsp;
+          <TypedText
+            text={password || `<PasswordGenerator />`}
+            callback={() => {
+              setIsGenerating(false);
+            }}
           />
-          <PasswordInputLabel htmlFor="passwordInput">
-            Password Input
-          </PasswordInputLabel>
+          &nbsp;
+        </Text>
 
+        <ButtonGroup>
           <Button
             onClick={() => {
               if (errorOption) return;
+              setIsGenerating(true);
               setPassword(generateString(passwordLength, allowedChars));
             }}
             disabled={errorOption}
+            // loading={isGenerating}
           >
             Generate
           </Button>
 
+          <Button
+            outline
+            onClick={() => {
+              setShowOptions(!showOptions);
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              className="feather feather-settings"
+              style={{ display: "block" }}
+            >
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </Button>
+        </ButtonGroup>
+
+        <OptionsContainer show={showOptions}>
           <OptionsGroup>
             <OptionContainer>
               <OptionLabel htmlFor="length">Length</OptionLabel>
@@ -146,7 +180,7 @@ const PasswordGenerator = () => {
               }}
             />
           </OptionsGroup>
-        </Content>
+        </OptionsContainer>
 
         <MessageContainer>
           <ClipboardMsg active={clipboardMsg && !errorOption} color="white">
@@ -159,7 +193,7 @@ const PasswordGenerator = () => {
             One option must be selected
           </ErrorMsg>
         </MessageContainer>
-      </ContentOuter>
+      </Inner>
     </Outer>
   );
 };
