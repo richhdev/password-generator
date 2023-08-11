@@ -21,13 +21,14 @@ import TypedText from "../TypedText";
 import Text from "../Text";
 
 const PasswordGenerator = () => {
-  console.log("mount");
   const [password, setPassword] = useState("");
-  const [isGenerating, setIsGenerating] = useState(false);
+  // const [isGenerating, setIsGenerating] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
 
   const [clipboardMsg, setClipboardMsg] = useState(false);
   const clipMsgTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const optionGroupRef = useRef<HTMLDivElement>(null);
 
   const lowercase = "qwertyuiopasdfghjklzxcvbnm";
   const uppercase = "QWERTYUIOPASDFGHJKLZXCVBNM";
@@ -80,9 +81,9 @@ const PasswordGenerator = () => {
           &nbsp;
           <TypedText
             text={password || `<PasswordGenerator />`}
-            callback={() => {
-              setIsGenerating(false);
-            }}
+            // callback={() => {
+            //   setIsGenerating(false);
+            // }}
           />
           &nbsp;
         </Text>
@@ -91,7 +92,7 @@ const PasswordGenerator = () => {
           <Button
             onClick={() => {
               if (errorOption) return;
-              setIsGenerating(true);
+              // setIsGenerating(true);
               setPassword(generateString(passwordLength, allowedChars));
             }}
             disabled={errorOption}
@@ -125,8 +126,17 @@ const PasswordGenerator = () => {
           </Button>
         </ButtonGroup>
 
-        <OptionsContainer show={showOptions}>
-          <OptionsGroup>
+        <OptionsContainer
+          show={showOptions}
+          style={
+            showOptions
+              ? {
+                  height: optionGroupRef.current?.offsetHeight + "px",
+                }
+              : { height: "0px" }
+          }
+        >
+          <OptionsGroup ref={optionGroupRef}>
             <OptionContainer>
               <OptionLabel htmlFor="length">Length</OptionLabel>
               <LengthInput

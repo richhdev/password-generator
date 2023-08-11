@@ -24,8 +24,8 @@ export const Inner = styled.div`
 export const OptionsContainer = styled.div.attrs(() => {})<{ show: boolean }>`
   position: relative;
   z-index: 2;
-  /* background-color: ${(props) => props.theme.backgroundColor || "#fff"}; */
-  padding: 0 calc(${fz.pResponsive}*2);
+  background-color: ${(props) => props.theme.backgroundColor || "#fff"};
+  padding: 0;
   border-radius: 10px;
   box-shadow: 0 0 64px 0px rgb(0 0 0 / 25%);
   width: 100%;
@@ -35,14 +35,17 @@ export const OptionsContainer = styled.div.attrs(() => {})<{ show: boolean }>`
   overflow: hidden;
 
   height: 0;
+
   opacity: 0;
   transition: all 300ms ease;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   ${(props) =>
     props.show &&
     css`
-      height: 180px;
-      padding: calc(${fz.pResponsive}*2);
       opacity: 1;
     `}
 `;
@@ -57,8 +60,8 @@ export const PasswordInput = styled(Input)`
   position: relative;
   z-index: 1;
   width: 100%;
-  width: 100%;
   max-width: 370px;
+  margin: 0 auto;
   text-align: center;
   font-size: ${fz.h5Responsive};
   display: flex;
@@ -68,7 +71,7 @@ export const PasswordInput = styled(Input)`
 export const OptionsGroup = styled.div`
   width: 100%;
   max-width: 370px;
-  /* margin-top: calc(${fz.pResponsive}*2); */
+  padding: calc(${fz.pResponsive}*2);
   display: flex;
   justify-content: space-between;
 
