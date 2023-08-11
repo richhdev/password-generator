@@ -5,15 +5,10 @@ import { CheckboxProps } from "./types";
 
 const Checkbox = (props: CheckboxProps) => (
   <Input
-<<<<<<< Updated upstream
     id={props.id}
-    type="Checkbox"
-    name={props.name}
-=======
-    type="Checkbox"
+    type="checkbox"
     name={props.name}
     label={props.label}
->>>>>>> Stashed changes
     checked={props.checked}
     onChange={props.onChange}
   />
