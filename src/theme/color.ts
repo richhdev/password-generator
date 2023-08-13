@@ -1,12 +1,18 @@
 const light = {
-  blue: "#509bf5",
+  foreground: "black",
+  background: "white",
+  blue: "#02adc9",
   green: "#c3f0c8",
   orange: "#ffc867",
   pink: "#fb59ba",
+  inputValid: "green",
+  inputInvalid: "red",
 };
 
 const dark = {
-  blue: "#19386F",
+  foreground: "white",
+  background: "black",
+  blue: "#1f4c81",
   green: "#227551",
   green2: "#89B901",
   orange: "#A12701",
@@ -14,7 +20,7 @@ const dark = {
 };
 
 export const color = {
+  ...light,
   light: light,
   dark: dark,
-  ...light,
 };

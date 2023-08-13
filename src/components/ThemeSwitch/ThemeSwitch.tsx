@@ -3,7 +3,7 @@ import styled from "styled-components";
 import AutoSvg from "./images/auto.svg";
 import LightSvg from "./images/light.svg";
 import DarkSvg from "./images/dark.svg";
-import { fz } from "../../settings/text";
+import { fz } from "@/theme/text";
 import { ThemeSwitchProps, ThemeMapArray } from "./types";
 
 const ThemeSwitch = (props: ThemeSwitchProps) => {
@@ -15,7 +15,7 @@ const ThemeSwitch = (props: ThemeSwitchProps) => {
         const i = themeIndex === themeMap.length - 1 ? 0 : themeIndex + 1;
         setThemeIndex(i);
 
-        console.log(themeMap[i].name);
+        // console.log(themeMap[i].name);
         props.callback(themeMap[i].name);
       }}
     >

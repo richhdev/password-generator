@@ -1,8 +1,8 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { ff, fz } from "@/settings/text";
+import { ff, fz } from "@/theme/text";
 import Button from "@/components/Button";
 import {
-  HeadingText,
+  // HeadingText,
   LengthInput,
   OptionContainer,
   OptionsGroup,
@@ -22,7 +22,7 @@ import Text from "../Text";
 
 const PasswordGenerator = () => {
   const [password, setPassword] = useState("");
-  // const [isGenerating, setIsGenerating] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
 
   const [clipboardMsg, setClipboardMsg] = useState(false);
@@ -38,6 +38,8 @@ const PasswordGenerator = () => {
   const [allowedChars, setAllowedChars] = useState(allChars);
 
   const defaultLength = 15;
+  const minLength = 1;
+  const maxLength = 50;
   const [passwordLength, setPasswordLength] = useState(defaultLength);
   const [includeLowercase, setIncludeLowercase] = useState(true);
   const [includeUppercase, setIncludeUppercase] = useState(true);
@@ -47,9 +49,7 @@ const PasswordGenerator = () => {
 
   useEffect(() => {
     if (!password) return;
-
     navigator.clipboard.writeText(password);
-
     setClipboardMsg(true);
 
     if (clipMsgTimeout.current) clearTimeout(clipMsgTimeout.current);
@@ -65,8 +65,8 @@ const PasswordGenerator = () => {
 
   function validateLengthInput(val: number) {
     if (isNaN(val)) val = defaultLength;
-    if (val > 99) val = 99;
-    if (val < 1) val = 1;
+    if (val > maxLength) val = maxLength;
+    if (val < minLength) val = minLength;
     return val;
   }
 
@@ -81,9 +81,9 @@ const PasswordGenerator = () => {
           &nbsp;
           <TypedText
             text={password || `<PasswordGenerator />`}
-            // callback={() => {
-            //   setIsGenerating(false);
-            // }}
+            callback={() => {
+              setIsGenerating(false);
+            }}
           />
           &nbsp;
         </Text>
@@ -92,11 +92,11 @@ const PasswordGenerator = () => {
           <Button
             onClick={() => {
               if (errorOption) return;
-              // setIsGenerating(true);
+              setIsGenerating(true);
               setPassword(generateString(passwordLength, allowedChars));
             }}
             disabled={errorOption}
-            // loading={isGenerating}
+            loading={isGenerating}
           >
             Generate
           </Button>
@@ -114,10 +114,10 @@ const PasswordGenerator = () => {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              className="feather feather-settings"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="feather feather-theme"
               style={{ display: "block" }}
             >
               <circle cx="12" cy="12" r="3"></circle>
@@ -145,7 +145,7 @@ const PasswordGenerator = () => {
                 value={passwordLength}
                 pattern="\d+"
                 min={1}
-                max={99}
+                max={maxLength}
                 step={1}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
                   const val = validateLengthInput(parseInt(e.target.value));

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { fz } from "@/settings/text";
+import { fz } from "@/theme/text";
 
 const padding = fz.pResponsive;
 

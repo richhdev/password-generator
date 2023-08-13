@@ -1,9 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { ff, fz } from "@/theme";
-import Text from "../Text";
 
 const Tagline = (props: { text: string; callback?: Function }) => {
-  console.log(props.text);
   const [typedText, setTypedText] = useState("");
 
   useEffect(() => {

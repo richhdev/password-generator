@@ -3,7 +3,7 @@
  * Generates a liquid/responsive css clamp value to be used as font size, padding, margin, etc
  * taken from https://github.com/walbo/font-size-clamp
  */
-export function clampBuilder(options: {
+export function clampGen(options: {
   minFontSize: string;
   maxFontSize: string;
   minWidth: string;

@@ -1,6 +1,6 @@
 import { ChangeEventHandler } from "react";
 import styled, { css } from "styled-components";
-import { fz } from "@/settings/text";
+import { fz } from "@/theme/text";
 import Text, { Small } from "@/components/Text";
 import Input from "@/components/Input";
 import Checkbox from "@/components/Checkbox";
@@ -69,8 +69,8 @@ export const PasswordInput = styled(Input)`
 `;
 
 export const OptionsGroup = styled.div`
-  width: 100%;
-  max-width: 370px;
+  /* width: 100%; */
+  /* max-width: 370px; */
   padding: calc(${fz.pResponsive}*2);
   display: flex;
   justify-content: space-between;
