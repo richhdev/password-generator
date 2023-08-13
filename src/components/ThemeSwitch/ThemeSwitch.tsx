@@ -1,60 +1,43 @@
-import { useState } from "react";
-import styled from "styled-components";
 import AutoSvg from "./images/auto.svg";
 import LightSvg from "./images/light.svg";
 import DarkSvg from "./images/dark.svg";
-import { fz } from "@/theme/text";
-import { ThemeSwitchProps, ThemeMapArray } from "./types";
 
-const ThemeSwitch = (props: ThemeSwitchProps) => {
-  const [themeIndex, setThemeIndex] = useState(0);
-
+const ThemeSwitch = ({
+  themeSwitch,
+  setThemeSwitch,
+}: {
+  themeSwitch: string;
+  setThemeSwitch: Function;
+}) => {
   return (
-    <Outer
-      onClick={() => {
-        const i = themeIndex === themeMap.length - 1 ? 0 : themeIndex + 1;
-        setThemeIndex(i);
-
-        // console.log(themeMap[i].name);
-        props.callback(themeMap[i].name);
-      }}
-    >
-      {themeMap[themeIndex].icon}
-    </Outer>
+    <>
+      <div
+        onClick={() => {
+          const options = [...Object.keys(themeMap)];
+          const index = options.findIndex((item) => item === themeSwitch);
+          const nextIndex = index === options.length - 1 ? 0 : index + 1;
+          setThemeSwitch(options[nextIndex]);
+        }}
+      >
+        {themeMap[themeSwitch as keyof typeof themeMap].icon}
+      </div>
+    </>
   );
 };
 
 export default ThemeSwitch;
 
-const themeMap: ThemeMapArray = [
-  {
-    name: "auto",
+const themeMap = {
+  auto: {
+    id: "auto",
     icon: <AutoSvg alt="auto" />,
   },
-  {
-    name: "light",
+  light: {
+    id: "light",
     icon: <LightSvg alt="light" />,
   },
-  {
-    name: "dark",
+  dark: {
+    id: "dark",
     icon: <DarkSvg alt="dark" />,
   },
-];
-
-const transition = `opacity 300ms ease`;
-
-const Outer = styled.div`
-  padding: calc(${fz.pResponsive} / 2);
-  color: ${(props) => props.theme.color || "#fff"};
-  background: ${(props) => props.theme.backgroundColor || "#000"};
-  border-radius: 6px;
-  cursor: pointer;
-  user-select: none;
-  transition: ${transition};
-
-  svg {
-    display: block;
-    width: ${fz.pResponsive};
-    height: ${fz.pResponsive};
-  }
-`;
+};
