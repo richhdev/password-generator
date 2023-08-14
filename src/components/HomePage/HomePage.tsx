@@ -8,6 +8,7 @@ import GradientBackground from "@/components/GradientBackground";
 import PasswordGenerator from "@/components/PasswordGenerator";
 import { Footer, Header, IconLink, Main, Outer } from "./_components";
 import GithubSvg from "@/images/github-icon.svg";
+import NavBar from "../NavBar";
 
 export default function Home() {
   const [theme, setTheme] = useState(themeLight);
@@ -37,23 +38,13 @@ export default function Home() {
       </Head>
       <ThemeProvider theme={theme}>
         <Outer>
-          <Header>
-            <ThemeSwitch callback={setThemeSwitch} />
-          </Header>
+          <NavBar themeSwitch={themeSwitch} setThemeSwitch={setThemeSwitch} />
+
           <Main>
             <PasswordGenerator />
           </Main>
-          <Footer>
-            <IconLink
-              href="https://github.com/richhdev/password-generator"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="github"
-            >
-              <GithubSvg role="img" alt="github" />
-            </IconLink>
-            {/* <div>information</div> */}
-          </Footer>
+
+          {/* <Footer></Footer> */}
         </Outer>
         <GradientBackground />
       </ThemeProvider>

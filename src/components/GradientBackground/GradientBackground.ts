@@ -1,5 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
-import settings from "../../settings";
+import { color } from "@/theme/color";
 
 const gradientBg = keyframes`
   0% {
@@ -25,13 +25,13 @@ export default styled.div`
   animation: ${gradientBg} 30s linear infinite;
 
   /* light theme */
-  background-image: ${`linear-gradient(145deg, ${settings.light.green}, ${settings.light.blue},${settings.light.pink}, ${settings.light.orange})`};
+  background-image: ${`linear-gradient(145deg, ${color.light.green}, ${color.light.blue},${color.light.pink}, ${color.light.orange})`};
 
   /* dark theme */
   ${(props) =>
-    props.theme.isDark &&
+    props.theme.id === "dark" &&
     css`
       background-size: 300% 300%;
-      background-image: ${`linear-gradient(145deg, ${settings.dark.pink}, ${settings.dark.blue},${settings.dark.green})`};
+      background-image: ${`linear-gradient(145deg, ${color.dark.pink}, ${color.dark.blue},${color.dark.green})`};
     `}
 `;

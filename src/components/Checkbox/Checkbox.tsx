@@ -1,13 +1,14 @@
 import styled from "styled-components";
-import { color } from "../../settings/color";
-import { fz } from "../../settings/text";
+import { color } from "@/theme/color";
+import { fz } from "@/theme/text";
 import { CheckboxProps } from "./types";
 
 const Checkbox = (props: CheckboxProps) => (
   <Input
     id={props.id}
-    type="Checkbox"
+    type="checkbox"
     name={props.name}
+    label={props.label}
     checked={props.checked}
     onChange={props.onChange}
   />
