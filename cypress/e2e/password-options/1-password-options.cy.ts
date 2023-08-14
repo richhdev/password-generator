@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+export {};
+
 const regexLowercaseOnly = /^[a-z]+$/g;
 const regexUppercaseOnly = /^[A-Z]+$/g;
 const regexNumbersOnly = /^[0-9]+$/g;
@@ -170,5 +172,3 @@ describe("generates-password", () => {
     cy.get("#password").invoke("text").should("match", regexSpecialOnly);
   });
 });
-
-export {};
