@@ -170,3 +170,5 @@ describe("generates-password", () => {
     cy.get("#password").invoke("text").should("match", regexSpecialOnly);
   });
 });
+
+export {};
