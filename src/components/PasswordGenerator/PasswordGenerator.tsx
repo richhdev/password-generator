@@ -1,6 +1,8 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { ff, fz } from "@/theme/text";
 import Button from "@/components/Button";
+import Text from "@/components/Text";
+import TypedText from "@/components/TypedText";
 import {
   // HeadingText,
   LengthInput,
@@ -16,9 +18,12 @@ import {
   Inner,
   OptionsContainer,
 } from "./_components";
-import { generateString } from "./_utils";
-import TypedText from "../TypedText";
-import Text from "../Text";
+import {
+  defaultLength,
+  minLength,
+  maxLength,
+  validateLength,
+} from "@/utils/generate-password";
 
 const PasswordGenerator = () => {
   const [password, setPassword] = useState("");
@@ -30,21 +35,12 @@ const PasswordGenerator = () => {
 
   const optionGroupRef = useRef<HTMLDivElement>(null);
 
-  const lowercase = "qwertyuiopasdfghjklzxcvbnm";
-  const uppercase = "QWERTYUIOPASDFGHJKLZXCVBNM";
-  const numbers = "1234567890";
-  const special = "~`!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/";
-  const allChars = `${lowercase}${uppercase}${numbers}${special}`;
-  const [allowedChars, setAllowedChars] = useState(allChars);
-
-  const defaultLength = 15;
-  const minLength = 1;
-  const maxLength = 50;
-  const [passwordLength, setPasswordLength] = useState(defaultLength);
+  const [passwordLength, setPasswordLength] = useState<number>(defaultLength);
   const [includeLowercase, setIncludeLowercase] = useState(true);
   const [includeUppercase, setIncludeUppercase] = useState(true);
   const [includeNumbers, setIncludeNumbers] = useState(true);
   const [includeSpecial, setIncludeSpecial] = useState(true);
+
   const [errorOption, setErrorOption] = useState(false);
 
   useEffect(() => {
@@ -59,16 +55,9 @@ const PasswordGenerator = () => {
   }, [password]);
 
   useEffect(() => {
+    // make sure at least one option is selected
     setErrorOption(!includeLowercase && !includeUppercase && !includeNumbers && !includeSpecial); // prettier-ignore
-    setAllowedChars(`${includeLowercase ? lowercase : ''}${includeUppercase ? uppercase : ''}${includeNumbers ? numbers : ''}${includeSpecial ? special : ''}`); // prettier-ignore
   }, [includeLowercase, includeUppercase, includeNumbers, includeSpecial]);
-
-  function validateLengthInput(val: number) {
-    if (isNaN(val)) val = defaultLength;
-    if (val > maxLength) val = maxLength;
-    if (val < minLength) val = minLength;
-    return val;
-  }
 
   return (
     <Outer>
@@ -92,8 +81,29 @@ const PasswordGenerator = () => {
           <Button
             onClick={() => {
               if (errorOption) return;
+
               setIsGenerating(true);
-              setPassword(generateString(passwordLength, allowedChars));
+
+              // cast values to string as `URLSearchParams` expects strings
+              const options = {
+                length: `${passwordLength}`,
+                lowercase: `${includeLowercase}`,
+                uppercase: `${includeUppercase}`,
+                numbers: `${includeNumbers}`,
+                special: `${includeSpecial}`,
+              };
+
+              const queryString = new URLSearchParams(options).toString();
+
+              fetch(`/api/password-generator?${queryString}`)
+                .then((response) => {
+                  if (response.status === 200) return response.json();
+                  if (response.status === 440) setErrorOption(true);
+                })
+                .then((data) => {
+                  setPassword(data["password"]);
+                })
+                .catch((error) => {});
             }}
             disabled={errorOption}
             loading={isGenerating}
@@ -142,13 +152,12 @@ const PasswordGenerator = () => {
               <LengthInput
                 id="length"
                 type="number"
-                value={passwordLength}
-                pattern="\d+"
-                min={1}
+                defaultValue={passwordLength}
+                min={minLength}
                 max={maxLength}
                 step={1}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                  const val = validateLengthInput(parseInt(e.target.value));
+                onBlur={(e: ChangeEvent<HTMLInputElement>) => {
+                  const val = validateLength(e.target.value);
                   setPasswordLength(val);
                 }}
               />
