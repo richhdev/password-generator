@@ -68,17 +68,21 @@ const PasswordGenerator = () => {
       <Inner>
         <Text ff={ff.mono} fz={fz.h1} style={{ textAlign: "center" }}>
           &nbsp;
-          <TypedText
-            text={password || `<PasswordGenerator />`}
-            callback={() => {
-              setIsGenerating(false);
-            }}
-          />
+          <span id="password">
+            <TypedText
+              text={password || `<PasswordGenerator />`}
+              callback={() => {
+                setIsGenerating(false);
+              }}
+            />
+          </span>
           &nbsp;
         </Text>
 
         <ButtonGroup>
           <Button
+            id="button-generate"
+            className="button-generate"
             onClick={() => {
               if (errorOption) return;
 
@@ -112,6 +116,7 @@ const PasswordGenerator = () => {
           </Button>
 
           <Button
+            id="options"
             outline
             onClick={() => {
               setShowOptions(!showOptions);
@@ -158,6 +163,7 @@ const PasswordGenerator = () => {
                 step={1}
                 onBlur={(e: ChangeEvent<HTMLInputElement>) => {
                   const val = validateLength(e.target.value);
+                  e.target.value = val.toString();
                   setPasswordLength(val);
                 }}
               />

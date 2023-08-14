@@ -1,9 +1,11 @@
 export type ButtonProps = {
   as?: "button" | "a";
   children?: React.ReactNode | string;
+  className?: string;
   disabled?: boolean;
   ghost?: boolean;
   href?: string;
+  id?: string;
   loading?: boolean;
   onClick?: Function;
   outline?: boolean;
