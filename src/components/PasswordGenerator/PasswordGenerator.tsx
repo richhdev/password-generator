@@ -1,21 +1,22 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { ff, fz } from "@/settings/text";
+import { ff, fz } from "@/theme/text";
 import Button from "@/components/Button";
+import Text from "@/components/Text";
+import TypedText from "@/components/TypedText";
 import {
-  Content,
-  ContentOuter,
-  HeadingText,
+  // HeadingText,
   LengthInput,
   OptionContainer,
   OptionsGroup,
   OptionLabel,
   Outer,
-  PasswordInput,
-  PasswordInputLabel,
   Option,
   MessageContainer,
   ErrorMsg,
   ClipboardMsg,
+  ButtonGroup,
+  Inner,
+  OptionsContainer,
 } from "./_components";
 import {
   defaultLength,
@@ -26,9 +27,13 @@ import {
 
 const PasswordGenerator = () => {
   const [password, setPassword] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
 
   const [clipboardMsg, setClipboardMsg] = useState(false);
   const clipMsgTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const optionGroupRef = useRef<HTMLDivElement>(null);
 
   const [passwordLength, setPasswordLength] = useState<number>(defaultLength);
   const [includeLowercase, setIncludeLowercase] = useState(true);
@@ -40,9 +45,7 @@ const PasswordGenerator = () => {
 
   useEffect(() => {
     if (!password) return;
-
     navigator.clipboard.writeText(password);
-
     setClipboardMsg(true);
 
     if (clipMsgTimeout.current) clearTimeout(clipMsgTimeout.current);
@@ -58,27 +61,32 @@ const PasswordGenerator = () => {
 
   return (
     <Outer>
-      <HeadingText as="h1" ff={ff.mono} fz={fz.h4Responsive}>
+      {/* <HeadingText as="h1" ff={ff.mono} fz={fz.h4Responsive}>
         {`<PasswordGenerator />`}
-      </HeadingText>
+      </HeadingText> */}
 
-      <ContentOuter>
-        <Content>
-          <PasswordInput
-            id="input-password"
-            className="input-password"
-            value={errorOption ? "" : password}
-            readOnly
-          />
-          <PasswordInputLabel htmlFor="passwordInput">
-            Password Input
-          </PasswordInputLabel>
+      <Inner>
+        <Text ff={ff.mono} fz={fz.h1} style={{ textAlign: "center" }}>
+          &nbsp;
+          <span id="password">
+            <TypedText
+              text={password || `<PasswordGenerator />`}
+              callback={() => {
+                setIsGenerating(false);
+              }}
+            />
+          </span>
+          &nbsp;
+        </Text>
 
+        <ButtonGroup>
           <Button
             id="button-generate"
             className="button-generate"
             onClick={() => {
               if (errorOption) return;
+
+              setIsGenerating(true);
 
               // cast values to string as `URLSearchParams` expects strings
               const options = {
@@ -102,11 +110,48 @@ const PasswordGenerator = () => {
                 .catch((error) => {});
             }}
             disabled={errorOption}
+            loading={isGenerating}
           >
             Generate
           </Button>
 
-          <OptionsGroup>
+          <Button
+            id="options"
+            outline
+            onClick={() => {
+              setShowOptions(!showOptions);
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="feather feather-theme"
+              style={{ display: "block" }}
+            >
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </Button>
+        </ButtonGroup>
+
+        <OptionsContainer
+          show={showOptions}
+          style={
+            showOptions
+              ? {
+                  height: optionGroupRef.current?.offsetHeight + "px",
+                }
+              : { height: "0px" }
+          }
+        >
+          <OptionsGroup ref={optionGroupRef}>
             <OptionContainer>
               <OptionLabel htmlFor="length">Length</OptionLabel>
               <LengthInput
@@ -118,9 +163,8 @@ const PasswordGenerator = () => {
                 step={1}
                 onBlur={(e: ChangeEvent<HTMLInputElement>) => {
                   const val = validateLength(e.target.value);
-                  if (e.target.value !== val.toString())
-                    e.target.value = val.toString();
-                  setPasswordLength(Number(val));
+                  e.target.value = val.toString();
+                  setPasswordLength(val);
                 }}
               />
             </OptionContainer>
@@ -161,7 +205,7 @@ const PasswordGenerator = () => {
               }}
             />
           </OptionsGroup>
-        </Content>
+        </OptionsContainer>
 
         <MessageContainer>
           <ClipboardMsg active={clipboardMsg && !errorOption} color="white">
@@ -174,7 +218,7 @@ const PasswordGenerator = () => {
             One option must be selected
           </ErrorMsg>
         </MessageContainer>
-      </ContentOuter>
+      </Inner>
     </Outer>
   );
 };

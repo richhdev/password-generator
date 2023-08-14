@@ -12,18 +12,3 @@ export type TextProps = {
   fw?: string;
   color?: string;
 };
-
-export type ThemeProps = {
-  color: ColorProp;
-  light: ColorProp;
-  dark: ColorProp;
-};
-
-type ColorProp = {
-  light: ColorProp;
-  dark: ColorProp;
-  blue: string;
-  green: string;
-  orange: string;
-  pink: string;
-};

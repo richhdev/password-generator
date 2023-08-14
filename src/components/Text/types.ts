@@ -1,14 +1,6 @@
 export type TextProps = {
   as?: keyof JSX.IntrinsicElements;
   className?: string;
-  h1?: boolean;
-  h2?: boolean;
-  h3?: boolean;
-  h4?: boolean;
-  h5?: boolean;
-  h6?: boolean;
-  body?: boolean;
-  mono?: boolean;
   ff?: string;
   fz?: string;
   lh?: string | number;
@@ -16,5 +8,4 @@ export type TextProps = {
   color?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode | string;
-  theme?: any;
 };

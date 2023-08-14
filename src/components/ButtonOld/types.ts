@@ -1,23 +1,17 @@
 export type ButtonProps = {
-  as?: "button" | "a";
-  children?: React.ReactNode | string;
   className?: string;
-  disabled?: boolean;
-  ghost?: boolean;
-  href?: string;
-  id?: string;
-  loading?: boolean;
+  as?: "button" | "a";
   onClick?: Function;
-  outline?: boolean;
   style?: React.CSSProperties;
+  outline?: boolean;
+  loading?: boolean;
+  disabled?: boolean;
+  children?: React.ReactNode | string;
+  href?: string;
   target?: "_self" | "_blank" | "_parent" | "_top";
 };
 
 export type ButtonOuterProps = {
-  disabled?: boolean;
   loading?: boolean;
-};
-
-export type ButtonLabelProps = {
   disabled?: boolean;
 };

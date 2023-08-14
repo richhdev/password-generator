@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
-import { ff, fz, lh } from "../../settings/text";
-import { color } from "../../settings/color";
+import { ff, fz, lh } from "@/theme/text";
+import { color } from "@/theme/color";
 import { InputProps } from "./types";
-import input from "../../settings/input";
+import input from "@/theme/input";
 
 const Input = (props: InputProps) => {
   return (

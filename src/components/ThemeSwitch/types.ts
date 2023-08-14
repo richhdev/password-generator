@@ -1,6 +1,6 @@
-export type ThemeSwitchProps = { callback: Function };
+export type ThemeSwitchProps = {};
 
 export type ThemeMapArray = Array<{
-  name: string;
+  id: "auto" | "light" | "dark";
   icon: React.ReactNode;
 }>;

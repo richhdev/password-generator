@@ -27,47 +27,87 @@ describe("generates-password", () => {
     // click generate button
     cy.get("#button-generate").click();
 
+    // wait until password generates
+    cy.wait(1000);
+
     // check generated password is 15 characters long
-    cy.get("#input-password").invoke("val").should("have.length", 15);
+    cy.get("#password")
+      .invoke("text")
+      .then((text) => {
+        expect(text).to.have.length(15);
+      });
   });
 
   it("has a minimum allowable length 8", () => {
-    // select all text inside input, enter value avove max akllowable length
+    // open options panel
+    cy.get("#options").click();
+
+    // select all text inside input, enter value below min allowable length
     cy.get("#length").type("{selectall}").type("1");
+    cy.get("#length").blur();
 
     // click generate button
     cy.get("#button-generate").click();
-    cy.get("#button-generate").click();
+
+    // wait until password generates
+    cy.wait(1000);
 
     // check generated password is 8 characters long
-    cy.get("#input-password").invoke("val").should("have.length", 8);
+    cy.get("#password")
+      .invoke("text")
+      .then((text) => {
+        expect(text).to.have.length(8);
+      });
   });
 
   it("has a maximum allowable length 99", () => {
-    // select all text inside input, enter value avove max akllowable length
+    // open options panel
+    cy.get("#options").click();
+
+    // select all text inside input, enter value above max allowable length
     cy.get("#length").type("{selectall}").type("999");
+    cy.get("#length").blur();
 
     // click generate button
     cy.get("#button-generate").click();
-    cy.get("#button-generate").click();
+
+    // wait until password generates
+    cy.wait(6000);
 
     // check generated password is 99 characters long
-    cy.get("#input-password").invoke("val").should("have.length", 99);
+    cy.get("#password")
+      .invoke("text")
+      .then((text) => {
+        expect(text).to.have.length(99);
+      });
   });
 
   it("has the correct length when set to a custom length (23)", () => {
+    // open options panel
+    cy.get("#options").click();
+
     // select all text inside input, then type 23
     cy.get("#length").type("{selectall}").type("23");
+    cy.get("#length").blur();
 
     // click generate button
     cy.get("#button-generate").click();
-    cy.get("#button-generate").click();
 
-    // check generated password is 69 characters long
-    cy.get("#input-password").invoke("val").should("have.length", 23);
+    // wait until password generates
+    cy.wait(2000);
+
+    // check generated password is 23 characters long
+    cy.get("#password")
+      .invoke("text")
+      .then((text) => {
+        expect(text).to.have.length(23);
+      });
   });
 
   it("has only lowercase characters", () => {
+    // open options panel
+    cy.get("#options").click();
+
     // uncheck all options except lowercase
     cy.get("#uppercase").click();
     cy.get("#numbers").click();
@@ -76,11 +116,16 @@ describe("generates-password", () => {
     // click generate button
     cy.get("#button-generate").click();
 
-    // check generated password is 69 characters long
-    cy.get("#input-password").invoke("val").should("match", regexLowercaseOnly);
+    cy.wait(1000);
+
+    // check generated password only has lowercase characters
+    cy.get("#password").invoke("text").should("match", regexLowercaseOnly);
   });
 
   it("has only uppercase characters", () => {
+    // open options panel
+    cy.get("#options").click();
+
     // uncheck all options except lowercase
     cy.get("#lowercase").click();
     cy.get("#numbers").click();
@@ -90,10 +135,13 @@ describe("generates-password", () => {
     cy.get("#button-generate").click();
 
     // check generated password is 69 characters long
-    cy.get("#input-password").invoke("val").should("match", regexUppercaseOnly);
+    cy.get("#password").invoke("text").should("match", regexUppercaseOnly);
   });
 
   it("has only numbers", () => {
+    // open options panel
+    cy.get("#options").click();
+
     // uncheck all options except lowercase
     cy.get("#lowercase").click();
     cy.get("#uppercase").click();
@@ -103,10 +151,13 @@ describe("generates-password", () => {
     cy.get("#button-generate").click();
 
     // check generated password is 69 characters long
-    cy.get("#input-password").invoke("val").should("match", regexNumbersOnly);
+    cy.get("#password").invoke("text").should("match", regexNumbersOnly);
   });
 
   it("has only special characters", () => {
+    // open options panel
+    cy.get("#options").click();
+
     // uncheck all options except lowercase
     cy.get("#lowercase").click();
     cy.get("#uppercase").click();
@@ -116,6 +167,6 @@ describe("generates-password", () => {
     cy.get("#button-generate").click();
 
     // check generated password is 69 characters long
-    cy.get("#input-password").invoke("val").should("match", regexSpecialOnly);
+    cy.get("#password").invoke("text").should("match", regexSpecialOnly);
   });
 });
