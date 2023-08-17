@@ -89,12 +89,14 @@ export const OptionContainer = styled.div`
 `;
 
 export const LengthInput = styled(Input)`
-  width: calc(${fz.pResponsive} * 4);
-  padding: calc(${fz.smallResponsive} / 2) ${fz.smallResponsive};
-  padding-right: calc(${fz.smallResponsive} / 2);
-  font-size: ${fz.pResponsive};
-  line-height: 1.2;
-  text-align: center;
+  && {
+    width: calc(${fz.pResponsive} * 4);
+    padding: calc(${fz.smallResponsive} / 2) ${fz.smallResponsive};
+    padding-right: calc(${fz.smallResponsive} / 2);
+    font-size: ${fz.pResponsive};
+    line-height: 1.2;
+    text-align: center;
+  }
 `;
 
 export function OptionCheckbox(props: {
