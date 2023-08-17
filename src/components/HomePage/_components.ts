@@ -1,7 +1,4 @@
 import styled, { css } from "styled-components";
-import { fz } from "@/theme/text";
-
-const padding = fz.pResponsive;
 
 export const Outer = styled.div`
   position: relative;
@@ -13,21 +10,8 @@ export const Outer = styled.div`
   justify-content: space-between;
 `;
 
-export const Header = styled.div`
-  padding: ${padding};
-  display: grid;
-  place-items: end;
-`;
-
 export const Main = styled.div`
   flex-grow: 1;
-  display: grid;
-  place-items: center;
-`;
-
-export const Footer = styled.div`
-  padding: ${padding};
-  margin: 0 auto;
   display: grid;
   place-items: center;
 `;
