@@ -14,7 +14,7 @@ const Tagline = (props: { text: string; callback?: Function }) => {
         setTypedText(currentText);
         interval = setTimeout(() => {
           typeWriter(text);
-        }, randomInteger(1, 100));
+        }, randomInteger(1, 75));
       } else {
         if (props.callback) props.callback();
       }

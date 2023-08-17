@@ -1,20 +1,14 @@
 import styled from "styled-components";
-import Link from "next/link";
-import { clampDefault } from "@/theme/text";
+import { clampDefault, fz } from "@/theme/text";
 import { clampGen } from "@/utils/clamp-gen";
 import GithubSvg from "@/images/github-icon.svg";
-// import Logo4 from "@/images/logo4.svg";
 import ThemeSwitch from "@/components/ThemeSwitch";
 import { NavBarProps } from "./types";
 
 export const NavBar = (props: NavBarProps) => (
   <NavBarOuter>
     <NavBarInner>
-      <NavBarGroup1></NavBarGroup1>
-
-      <NavBarGroup2></NavBarGroup2>
-
-      <NavBarGroup3>
+      <IconGroup>
         <IconLink
           href="https://github.com/richhdev/password-generator"
           target="_blank"
@@ -28,7 +22,7 @@ export const NavBar = (props: NavBarProps) => (
             setThemeSwitch={props.setThemeSwitch}
           />
         </IconLink>
-      </NavBarGroup3>
+      </IconGroup>
     </NavBarInner>
   </NavBarOuter>
 );
@@ -45,14 +39,9 @@ const NavBarOuter = styled.div`
   z-index: 3;
   width: 100%;
   height: ${navBarHeight};
-  padding: 12px 24px;
-  /* background-color: ${(props) =>
-    props.theme.id === "dark" ? "rgba(0,0,0,0.7)" : "rgba(255,255,255,0.9)"}; */
+  padding: ${fz.smallResponsive};
   backdrop-filter: blur(1px);
   color: ${(props) => (props.theme.id === "dark" ? "white" : "black")};
-  /* border-bottom: 1px solid;
-  border-color: ${(props) =>
-    props.theme.id === "dark" ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.2)"}; */
 `;
 
 const NavBarInner = styled.div`
@@ -61,36 +50,19 @@ const NavBarInner = styled.div`
   height: 100%;
   margin: 0 auto;
 
-  display: grid;
-  grid: 1fr / repeat(3, 1fr);
-`;
-
-const NavBarGroup1 = styled.div`
-  height: 100%;
   display: flex;
-  place-items: center;
+  justify-content: flex-end;
 `;
 
-const NavBarGroup2 = styled.div`
-  height: 100%;
-
-  display: grid;
-  place-items: center;
-
-  svg {
-    width: ${clampGen({
-      minFontSize: "120",
-      maxFontSize: "150",
-      ...clampDefault,
-    })};
-  }
-`;
-
-export const NavBarGroup3 = styled.div`
+const IconGroup = styled.div`
   margin-left: auto;
   display: flex;
-  place-content: center;
-  gap: 8px;
+  place-content: end;
+  gap: ${clampGen({
+    minFontSize: "2",
+    maxFontSize: "8",
+    ...clampDefault,
+  })};
 `;
 
 const size = clampGen({
@@ -99,7 +71,7 @@ const size = clampGen({
   ...clampDefault,
 });
 
-export const IconLink = styled.a`
+const IconLink = styled.a`
   width: ${size};
   height: ${size};
   padding: 8px;

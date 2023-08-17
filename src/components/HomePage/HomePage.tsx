@@ -3,11 +3,9 @@ import { ThemeProvider } from "styled-components";
 import Head from "next/head";
 import GlobalMeta from "@/components/GlobalMeta";
 import { themeDark, themeLight } from "@/theme";
-import ThemeSwitch from "@/components/ThemeSwitch";
 import GradientBackground from "@/components/GradientBackground";
 import PasswordGenerator from "@/components/PasswordGenerator";
-import { Footer, Header, IconLink, Main, Outer } from "./_components";
-import GithubSvg from "@/images/github-icon.svg";
+import { Main, Outer } from "./_components";
 import NavBar from "../NavBar";
 
 export default function Home() {
@@ -36,15 +34,13 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <ThemeProvider theme={theme}>
         <Outer>
           <NavBar themeSwitch={themeSwitch} setThemeSwitch={setThemeSwitch} />
-
           <Main>
             <PasswordGenerator />
           </Main>
-
-          {/* <Footer></Footer> */}
         </Outer>
         <GradientBackground />
       </ThemeProvider>

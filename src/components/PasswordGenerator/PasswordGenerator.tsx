@@ -4,19 +4,19 @@ import Button from "@/components/Button";
 import Text from "@/components/Text";
 import TypedText from "@/components/TypedText";
 import {
-  // HeadingText,
-  LengthInput,
-  OptionContainer,
-  OptionsGroup,
-  OptionLabel,
   Outer,
-  Option,
-  MessageContainer,
-  ErrorMsg,
-  ClipboardMsg,
-  ButtonGroup,
   Inner,
+  PasswordContainer,
+  ButtonGroup,
+  LengthInput,
   OptionsContainer,
+  OptionsGroup,
+  OptionCheckbox,
+  OptionContainer,
+  OptionLabel,
+  MessageContainer,
+  ClipboardMsg,
+  ErrorMsg,
 } from "./_components";
 import {
   defaultLength,
@@ -24,6 +24,7 @@ import {
   maxLength,
   validateLength,
 } from "@/utils/generate-password";
+import OptionsIcon from "@/images/options-icon.svg";
 
 const PasswordGenerator = () => {
   const [password, setPassword] = useState("");
@@ -61,21 +62,21 @@ const PasswordGenerator = () => {
 
   return (
     <Outer>
-      {/* <HeadingText as="h1" ff={ff.mono} fz={fz.h4Responsive}>
-        {`<PasswordGenerator />`}
-      </HeadingText> */}
-
       <Inner>
-        <Text ff={ff.mono} fz={fz.h1} style={{ textAlign: "center" }}>
+        <Text
+          ff={ff.mono}
+          fz={fz.h1}
+          style={{ textAlign: "center", overflowWrap: "anywhere" }}
+        >
           &nbsp;
-          <span id="password">
+          <PasswordContainer id="password">
             <TypedText
               text={password || `<PasswordGenerator />`}
               callback={() => {
                 setIsGenerating(false);
               }}
             />
-          </span>
+          </PasswordContainer>
           &nbsp;
         </Text>
 
@@ -122,34 +123,18 @@ const PasswordGenerator = () => {
               setShowOptions(!showOptions);
             }}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="feather feather-theme"
-              style={{ display: "block" }}
-            >
-              <circle cx="12" cy="12" r="3"></circle>
-              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-            </svg>
+            <OptionsIcon />
+            {/* <GithubSvg /> */}
           </Button>
         </ButtonGroup>
 
         <OptionsContainer
           show={showOptions}
-          style={
-            showOptions
-              ? {
-                  height: optionGroupRef.current?.offsetHeight + "px",
-                }
-              : { height: "0px" }
-          }
+          style={{
+            height: showOptions
+              ? optionGroupRef.current?.offsetHeight + "px"
+              : "0px",
+          }}
         >
           <OptionsGroup ref={optionGroupRef}>
             <OptionContainer>
@@ -169,7 +154,7 @@ const PasswordGenerator = () => {
               />
             </OptionContainer>
 
-            <Option
+            <OptionCheckbox
               id="lowercase"
               label="abc"
               checked={includeLowercase}
@@ -178,7 +163,7 @@ const PasswordGenerator = () => {
               }}
             />
 
-            <Option
+            <OptionCheckbox
               id="uppercase"
               label="ABC"
               checked={includeUppercase}
@@ -187,7 +172,7 @@ const PasswordGenerator = () => {
               }}
             />
 
-            <Option
+            <OptionCheckbox
               id="numbers"
               label="123"
               checked={includeNumbers}
@@ -196,7 +181,7 @@ const PasswordGenerator = () => {
               }}
             />
 
-            <Option
+            <OptionCheckbox
               id="special"
               label="!@#$"
               checked={includeSpecial}
@@ -211,9 +196,6 @@ const PasswordGenerator = () => {
           <ClipboardMsg active={clipboardMsg && !errorOption} color="white">
             Copied to clipboard
           </ClipboardMsg>
-        </MessageContainer>
-
-        <MessageContainer>
           <ErrorMsg active={errorOption} color="white">
             One option must be selected
           </ErrorMsg>
