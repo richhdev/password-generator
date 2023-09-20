@@ -1,0 +1,34 @@
+name: Cypress Test
+
+on:
+  push:
+    branches:
+      - cypress
+
+jobs:
+  cypress-run:
+    name: Cypress Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js 20.3.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.3.0
+
+      - name: Setup pnpm 8.6.3
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.6.3
+
+      - name: Install Dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Cypress Run
+        uses: cypress-io/github-action@v2
+        run: pnpm test
+        with:
+          build: pnpm build
+          start: pnpm start
