@@ -18,8 +18,11 @@ jobs:
         with:
           version: 8.6.3
 
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Cypress Run
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v6
         with:
           build: pnpm build
           start: pnpm start
