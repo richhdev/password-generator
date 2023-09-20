@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { ButtonProps } from "./types";
+import { MouseEvent, useEffect, useState } from "react";
+import { type ButtonProps } from "./types";
 import { Inner, Label, LoadingIcon, Outer } from "./_components";
 
 const Button = (props: ButtonProps) => {
@@ -14,21 +14,15 @@ const Button = (props: ButtonProps) => {
   }, [isClicked]);
 
   return (
-    <Outer $loading={props.loading} disabled={props.disabled}>
+    <Outer loading={props.loading} disabled={props.disabled}>
       <Inner
         as={props.as || (props.href && "a")}
-        disabled={props.disabled}
         className={`${isClicked ? "isClicked" : ""}`}
-        ghost={props.ghost}
-        href={props.href}
-        id={props.id}
-        $loading={props.loading}
-        onClick={() => {
+        onClick={(event: MouseEvent<HTMLButtonElement>) => {
           if (!props.loading || !props.disabled) setIsClicked(true);
-          if (props.onClick) props.onClick();
+          if (props.onClick) props.onClick(event);
         }}
-        outline={props.outline}
-        target={props.target}
+        {...props}
       >
         {props.loading && <LoadingIcon />}
         {props.children && (

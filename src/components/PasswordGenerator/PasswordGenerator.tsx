@@ -117,6 +117,7 @@ const PasswordGenerator = () => {
           </Button>
 
           <Button
+            aria-label="Options"
             id="options"
             outline
             onClick={() => {
