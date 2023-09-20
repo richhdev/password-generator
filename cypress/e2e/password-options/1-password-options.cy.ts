@@ -7,20 +7,8 @@ const regexSpecialOnly = /[~`!@#$%^&*()_\-+={[}\]|\\:;\"'<,>.?/]/g;
 
 describe("generates-password", () => {
   beforeEach(() => {
-    // allow clipboard
-    Cypress.automation("remote:debugger:protocol", {
-      command: "Browser.grantPermissions",
-      params: {
-        permissions: ["clipboardReadWrite", "clipboardSanitizedWrite"],
-        origin: window.location.origin,
-      },
-    });
-
     // go to page
-    cy.visit("http://localhost:3000");
-
-    // wait until page loads
-    cy.wait(100);
+    cy.visit("/");
   });
 
   it("has a default password length of 15", () => {
@@ -44,10 +32,9 @@ describe("generates-password", () => {
 
     // select all text inside input, enter value below min allowable length
     cy.get("#length").type("{selectall}").type("1");
-    cy.get("#length").blur();
 
     // click generate button
-    cy.get("#button-generate").click();
+    cy.get("#button-generate").focus().click();
 
     // wait until password generates
     cy.wait(1000);
@@ -66,10 +53,9 @@ describe("generates-password", () => {
 
     // select all text inside input, enter value above max allowable length
     cy.get("#length").type("{selectall}").type("999");
-    cy.get("#length").blur();
 
     // click generate button
-    cy.get("#button-generate").click();
+    cy.get("#button-generate").focus().click();
 
     // wait until password generates
     cy.wait(6000);
@@ -88,10 +74,9 @@ describe("generates-password", () => {
 
     // select all text inside input, then type 23
     cy.get("#length").type("{selectall}").type("23");
-    cy.get("#length").blur();
 
     // click generate button
-    cy.get("#button-generate").click();
+    cy.get("#button-generate").focus().click();
 
     // wait until password generates
     cy.wait(2000);
