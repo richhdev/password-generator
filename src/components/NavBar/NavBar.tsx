@@ -16,7 +16,7 @@ export const NavBar = (props: NavBarProps) => (
         >
           <GithubSvg role="img" alt="github" />
         </IconLink>
-        <IconLink>
+        <IconLink as="div">
           <ThemeSwitch
             themeSwitch={props.themeSwitch}
             setThemeSwitch={props.setThemeSwitch}
