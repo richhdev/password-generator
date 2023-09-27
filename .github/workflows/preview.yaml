@@ -5,11 +5,16 @@ name: Vercel Preview Deployment
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
 on:
   push:
     branches-ignore:
       - main
+
 jobs:
+  cypress-test:
+    uses: ./.github/workflows/cypress-test.yaml
+
   Deploy-Preview:
     runs-on: ubuntu-latest
     steps:
