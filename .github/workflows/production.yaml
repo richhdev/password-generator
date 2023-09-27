@@ -13,7 +13,7 @@ on:
 
 jobs:
   cypress-test:
-    uses: ./.github/workflows/cypress-test.yml
+    uses: ./.github/workflows/cypress-test.yaml
 
   Deploy-Production:
     needs: cypress-test
