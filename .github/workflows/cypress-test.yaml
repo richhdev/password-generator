@@ -1,19 +1,19 @@
 name: Cypress Test
 
 on:
-  push:
-    branches:
-      - cypress
+  workflow_call:
 
 jobs:
   cypress-run:
     name: Cypress Test
+
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: Setup pnpm 8.6.3
+      - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8.6.3
