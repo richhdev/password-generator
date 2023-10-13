@@ -38,8 +38,6 @@ export const OptionsContainer = styled.div.attrs(() => {})<{ show: boolean }>`
   max-width: 460px;
   text-align: center;
 
-  overflow: hidden;
-
   height: 0;
 
   opacity: 0;
