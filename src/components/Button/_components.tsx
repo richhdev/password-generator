@@ -1,8 +1,12 @@
 import styled, { css, keyframes } from "styled-components";
-import { ButtonProps, ButtonOuterProps, ButtonLabelProps } from "./types";
 import { ff, fz, clampDefault } from "@/theme/text";
 import { clampGen } from "@/utils/clamp-gen";
 import LoadingSvg from "./images/spinner.svg";
+import {
+  type ButtonProps,
+  type ButtonOuterProps,
+  type ButtonLabelProps,
+} from "./types";
 
 const animationClicked = (color: string) => keyframes`
   0% { box-shadow: 0 0 0px 4px ${color} ;}
@@ -171,7 +175,7 @@ const LoadingIconOuter = styled.span`
   }
 `;
 
-export const Label = styled.div.attrs(() => {})<ButtonLabelProps>`
+export const Label = styled.div<ButtonLabelProps>`
   transition: all 150ms ease-out;
 
   /* disabled */

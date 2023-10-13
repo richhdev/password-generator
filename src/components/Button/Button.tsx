@@ -14,15 +14,23 @@ const Button = (props: ButtonProps) => {
   }, [isClicked]);
 
   return (
-    <Outer loading={props.loading} disabled={props.disabled}>
+    <Outer
+      loading={props.loading === true ? true : undefined}
+      disabled={props.disabled}
+    >
       <Inner
         as={props.as || (props.href && "a")}
+        disabled={props.disabled}
         className={`${isClicked ? "isClicked" : ""}`}
+        ghost={props.ghost}
+        href={props.href}
+        loading={props.loading === true ? true : undefined}
         onClick={(event: MouseEvent<HTMLButtonElement>) => {
           if (!props.loading || !props.disabled) setIsClicked(true);
           if (props.onClick) props.onClick(event);
         }}
-        {...props}
+        outline={props.outline}
+        target={props.target}
       >
         {props.loading && <LoadingIcon />}
         {props.children && (
