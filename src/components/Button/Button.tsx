@@ -19,9 +19,10 @@ const Button = (props: ButtonProps) => {
       disabled={props.disabled}
     >
       <Inner
+        {...props}
         as={props.as || (props.href && "a")}
         disabled={props.disabled}
-        className={`${isClicked ? "isClicked" : ""}`}
+        className={`${props.className ?? " "} ${isClicked ? "isClicked" : ""}`}
         ghost={props.ghost}
         href={props.href}
         id={props.id}

@@ -83,7 +83,6 @@ const PasswordGenerator = () => {
         <ButtonGroup>
           <Button
             id="button-generate"
-            className="button-generate"
             onClick={() => {
               if (errorOption) return;
 
