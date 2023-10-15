@@ -24,6 +24,7 @@ const Button = (props: ButtonProps) => {
         className={`${isClicked ? "isClicked" : ""}`}
         ghost={props.ghost}
         href={props.href}
+        id={props.id}
         loading={props.loading === true ? true : undefined}
         onClick={(event: MouseEvent<HTMLButtonElement>) => {
           if (!props.loading || !props.disabled) setIsClicked(true);
