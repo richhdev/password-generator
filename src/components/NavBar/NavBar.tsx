@@ -46,7 +46,6 @@ const NavBarOuter = styled.div`
 
 const NavBarInner = styled.div`
   width: 100%;
-  max-width: 1440px;
   height: 100%;
   margin: 0 auto;
 
