@@ -7,6 +7,17 @@ const regexSpecialOnly = /[~`!@#$%^&*()_\-+={[}\]|\\:;\"'<,>.?/]/g;
 
 describe("generates-password", () => {
   beforeEach(() => {
+    // allow clipboard in headed mode
+    if (Cypress.config("isInteractive")) {
+      Cypress.automation("remote:debugger:protocol", {
+        command: "Browser.grantPermissions",
+        params: {
+          permissions: ["clipboardReadWrite", "clipboardSanitizedWrite"],
+          origin: window.location.origin,
+        },
+      });
+    }
+
     // go to page
     cy.visit("/");
   });
