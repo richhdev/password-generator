@@ -7,10 +7,10 @@ export default function handler(
 ) {
   const options = request.query;
   const result = generatePassword(options);
-  const statusCode = result ? 200 : 440;
+  const statusCode = typeof result === "string" ? 200 : 400;
   const bodyJson = result
     ? { password: result }
     : { error: "At least one option must be set to true" };
 
-  response.status(statusCode).json(bodyJson);
+  response.status(400).json(bodyJson);
 }

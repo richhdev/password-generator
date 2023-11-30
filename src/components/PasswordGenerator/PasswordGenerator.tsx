@@ -102,7 +102,7 @@ const PasswordGenerator = () => {
               fetch(`/api/password-generator?${queryString}`)
                 .then((response) => {
                   if (response.status === 200) return response.json();
-                  if (response.status === 440) setErrorOption(true);
+                  if (response.status === 400) setErrorOption(true);
                 })
                 .then((data) => {
                   setPassword(data["password"]);
