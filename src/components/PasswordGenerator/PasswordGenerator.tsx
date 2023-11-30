@@ -99,7 +99,7 @@ const PasswordGenerator = () => {
 
               const queryString = new URLSearchParams(options).toString();
 
-              fetch(`/api/password-generator?${queryString}`)
+              fetch(`/api?${queryString}`)
                 .then((response) => {
                   if (response.status === 200) return response.json();
                   if (response.status === 400) setErrorOption(true);

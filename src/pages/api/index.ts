@@ -12,5 +12,5 @@ export default function handler(
     ? { password: result }
     : { error: "At least one option must be set to true" };
 
-  response.status(400).json(bodyJson);
+  response.status(statusCode).json(bodyJson);
 }
