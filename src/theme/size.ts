@@ -2,6 +2,11 @@ import { clampGen } from "@/utils/clamp-gen";
 import { clampDefault } from "./text";
 
 export const size = {
+  xs: clampGen({
+    minFontSize: "8",
+    maxFontSize: "12",
+    ...clampDefault,
+  }),
   sm: clampGen({
     minFontSize: "12",
     maxFontSize: "16",
