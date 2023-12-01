@@ -1,4 +1,3 @@
-import { NavBar, navBarHeight } from "./NavBar";
+import { NavBar } from "./NavBar";
 
 export default NavBar;
-export { navBarHeight };
