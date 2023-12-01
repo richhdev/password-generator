@@ -1,24 +1,20 @@
 import { ChangeEventHandler } from "react";
 import styled, { css } from "styled-components";
-import { fz } from "@/theme/text";
+import { fz, lh } from "@/theme";
 import Text, { Small } from "@/components/Text";
 import Input from "@/components/Input";
 import Checkbox from "@/components/Checkbox";
 
 export const Outer = styled.div`
-  display: grid;
-  place-items: center;
-`;
-
-export const Inner = styled.div`
-  position: relative;
-  width: 100%;
-  max-width: 100vw;
   padding: 8px;
 `;
 
-export const PasswordContainer = styled.span`
+export const PasswordText = styled(Text)`
+  display: block;
+  text-align: center;
+  overflow-wrap: anywhere;
   user-select: all;
+  min-height: calc(${fz.h1Responsive} * ${lh.h1});
 `;
 
 export const ButtonGroup = styled.div`
@@ -29,7 +25,7 @@ export const ButtonGroup = styled.div`
   padding: ${fz.pResponsive};
 `;
 
-export const OptionsContainer = styled.div.attrs(() => {})<{ show: boolean }>`
+export const OptionsContainer = styled.div<{ show: boolean }>`
   position: relative;
   z-index: 2;
   padding: 0;
@@ -130,7 +126,7 @@ export function OptionLabel(props: {
 
 export const MessageContainer = styled.div`
   position: relative;
-  top: calc(${fz.pResponsive} * -1); // "* -1" casts to negative value
+  top: calc(${fz.pResponsive} * -1); /* "* -1" casts to negative value */
   z-index: 1;
   width: 100%;
   text-align: center;

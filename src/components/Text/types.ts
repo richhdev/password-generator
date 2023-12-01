@@ -1,5 +1,6 @@
 export type TextProps = {
   as?: keyof JSX.IntrinsicElements;
+  align?: "left" | "center" | "right" | "justify";
   className?: string;
   ff?: string;
   fz?: string;

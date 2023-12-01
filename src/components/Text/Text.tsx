@@ -10,24 +10,12 @@ const Text = styled.p<TextProps>`
   line-height: ${(props) => props.lh ?? props.theme.text.p.lh ?? lh.p};
   font-weight: ${(props) => props.fw ?? props.theme.text.p.fw ?? 400};
   color: ${(props) => props.color ?? props.theme.color ?? "black"};
+  text-align: ${(props) => props.align ?? "inherit"};
 `;
 
 export default Text;
 
-export const StyledH1 = styled(Text)`
-  font-family: ${(props) => props.ff ?? props.theme.text.h1.ff ?? ff.h1};
-  font-size: ${(props) =>
-    props.fz ?? props.theme.text.h1.fz ?? fz.h1Responsive};
-  line-height: ${(props) => props.lh ?? props.theme.text.h1.lh ?? lh.h1};
-  font-weight: ${(props) => props.fw ?? props.theme.text.h1.fw ?? 700};
-  text-transform: uppercase;
-`;
-
 export const H1 = (props: TextProps) => (
-  <StyledH1 forwardedAs="h1" {...props} />
-);
-
-export const H1Old = (props: TextProps) => (
   <Text
     as="h1"
     ff={ff.h1}
