@@ -1,12 +1,9 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { ff, fz } from "@/theme/text";
+import { ff, fz, lh } from "@/theme";
 import Button from "@/components/Button";
-import Text from "@/components/Text";
 import TypedText from "@/components/TypedText";
 import {
   Outer,
-  Inner,
-  PasswordContainer,
   ButtonGroup,
   LengthInput,
   OptionsContainer,
@@ -17,6 +14,7 @@ import {
   MessageContainer,
   ClipboardMsg,
   ErrorMsg,
+  PasswordText,
 } from "./_components";
 import {
   defaultLength,
@@ -62,145 +60,137 @@ const PasswordGenerator = () => {
 
   return (
     <Outer>
-      <Inner>
-        <Text
-          ff={ff.mono}
-          fz={fz.h1}
-          style={{ textAlign: "center", overflowWrap: "anywhere" }}
+      <PasswordText id="password" ff={ff.mono} fz={fz.h1Responsive} lh={lh.h1}>
+        {/* &nbsp; */}
+        <TypedText
+          text={password || `<PasswordGenerator />`}
+          callback={() => {
+            setIsGenerating(false);
+          }}
+        />
+        {/* &nbsp; */}
+      </PasswordText>
+
+      <ButtonGroup>
+        <Button
+          id="button-generate"
+          onClick={() => {
+            if (errorOption) return;
+
+            setIsGenerating(true);
+
+            // cast values to string as `URLSearchParams` expects strings
+            const options = {
+              length: `${passwordLength}`,
+              lowercase: `${includeLowercase}`,
+              uppercase: `${includeUppercase}`,
+              numbers: `${includeNumbers}`,
+              special: `${includeSpecial}`,
+            };
+
+            const queryString = new URLSearchParams(options).toString();
+
+            fetch(`/api?${queryString}`)
+              .then((response) => {
+                if (response.status === 200) return response.json();
+                if (response.status === 400) setErrorOption(true);
+              })
+              .then((data) => {
+                setPassword(data["password"]);
+              })
+              .catch((error) => {});
+          }}
+          disabled={errorOption}
+          loading={isGenerating}
         >
-          &nbsp;
-          <PasswordContainer id="password">
-            <TypedText
-              text={password || `<PasswordGenerator />`}
-              callback={() => {
-                setIsGenerating(false);
-              }}
-            />
-          </PasswordContainer>
-          &nbsp;
-        </Text>
+          Generate
+        </Button>
 
-        <ButtonGroup>
-          <Button
-            id="button-generate"
-            onClick={() => {
-              if (errorOption) return;
-
-              setIsGenerating(true);
-
-              // cast values to string as `URLSearchParams` expects strings
-              const options = {
-                length: `${passwordLength}`,
-                lowercase: `${includeLowercase}`,
-                uppercase: `${includeUppercase}`,
-                numbers: `${includeNumbers}`,
-                special: `${includeSpecial}`,
-              };
-
-              const queryString = new URLSearchParams(options).toString();
-
-              fetch(`/api?${queryString}`)
-                .then((response) => {
-                  if (response.status === 200) return response.json();
-                  if (response.status === 400) setErrorOption(true);
-                })
-                .then((data) => {
-                  setPassword(data["password"]);
-                })
-                .catch((error) => {});
-            }}
-            disabled={errorOption}
-            loading={isGenerating}
-          >
-            Generate
-          </Button>
-
-          <Button
-            aria-label="Options"
-            id="options"
-            outline
-            onClick={() => {
-              setShowOptions(!showOptions);
-            }}
-          >
-            <OptionsIcon />
-            {/* <GithubSvg /> */}
-          </Button>
-        </ButtonGroup>
-
-        <OptionsContainer
-          show={showOptions}
-          style={{
-            height: showOptions
-              ? optionGroupRef.current?.offsetHeight + "px"
-              : "0px",
+        <Button
+          aria-label="Options"
+          id="options"
+          outline
+          onClick={() => {
+            setShowOptions(!showOptions);
           }}
         >
-          <OptionsGroup ref={optionGroupRef}>
-            <OptionContainer>
-              <OptionLabel htmlFor="length">Length</OptionLabel>
-              <LengthInput
-                id="length"
-                type="number"
-                defaultValue={passwordLength}
-                min={minLength}
-                max={maxLength}
-                step={1}
-                onBlur={(e: ChangeEvent<HTMLInputElement>) => {
-                  const val = validateLength(e.target.value);
-                  e.target.value = val.toString();
-                  setPasswordLength(val);
-                }}
-              />
-            </OptionContainer>
+          <OptionsIcon />
+          {/* <GithubSvg /> */}
+        </Button>
+      </ButtonGroup>
 
-            <OptionCheckbox
-              id="lowercase"
-              label="abc"
-              checked={includeLowercase}
-              onChange={() => {
-                setIncludeLowercase(!includeLowercase);
+      <OptionsContainer
+        show={showOptions}
+        style={{
+          height: showOptions
+            ? optionGroupRef.current?.offsetHeight + "px"
+            : "0px",
+        }}
+      >
+        <OptionsGroup ref={optionGroupRef}>
+          <OptionContainer>
+            <OptionLabel htmlFor="length">Length</OptionLabel>
+            <LengthInput
+              id="length"
+              type="number"
+              defaultValue={passwordLength}
+              min={minLength}
+              max={maxLength}
+              step={1}
+              onBlur={(e: ChangeEvent<HTMLInputElement>) => {
+                const val = validateLength(e.target.value);
+                e.target.value = val.toString();
+                setPasswordLength(val);
               }}
             />
+          </OptionContainer>
 
-            <OptionCheckbox
-              id="uppercase"
-              label="ABC"
-              checked={includeUppercase}
-              onChange={() => {
-                setIncludeUppercase(!includeUppercase);
-              }}
-            />
+          <OptionCheckbox
+            id="lowercase"
+            label="abc"
+            checked={includeLowercase}
+            onChange={() => {
+              setIncludeLowercase(!includeLowercase);
+            }}
+          />
 
-            <OptionCheckbox
-              id="numbers"
-              label="123"
-              checked={includeNumbers}
-              onChange={() => {
-                setIncludeNumbers(!includeNumbers);
-              }}
-            />
+          <OptionCheckbox
+            id="uppercase"
+            label="ABC"
+            checked={includeUppercase}
+            onChange={() => {
+              setIncludeUppercase(!includeUppercase);
+            }}
+          />
 
-            <OptionCheckbox
-              id="special"
-              label="!@#$"
-              checked={includeSpecial}
-              onChange={() => {
-                setIncludeSpecial(!includeSpecial);
-              }}
-            />
-          </OptionsGroup>
-        </OptionsContainer>
+          <OptionCheckbox
+            id="numbers"
+            label="123"
+            checked={includeNumbers}
+            onChange={() => {
+              setIncludeNumbers(!includeNumbers);
+            }}
+          />
 
-        <MessageContainer>
-          <ClipboardMsg active={clipboardMsg && !errorOption} color="white">
-            Copied to clipboard
-          </ClipboardMsg>
-          <ErrorMsg active={errorOption} color="white">
-            One option must be selected
-          </ErrorMsg>
-        </MessageContainer>
-      </Inner>
+          <OptionCheckbox
+            id="special"
+            label="!@#$"
+            checked={includeSpecial}
+            onChange={() => {
+              setIncludeSpecial(!includeSpecial);
+            }}
+          />
+        </OptionsGroup>
+      </OptionsContainer>
+
+      <MessageContainer>
+        <ClipboardMsg active={clipboardMsg && !errorOption} color="white">
+          Copied to clipboard
+        </ClipboardMsg>
+        <ErrorMsg active={errorOption} color="white">
+          One option must be selected
+        </ErrorMsg>
+      </MessageContainer>
     </Outer>
   );
 };

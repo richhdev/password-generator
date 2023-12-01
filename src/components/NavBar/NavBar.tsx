@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { clampDefault } from "@/theme/text";
+import { size, clampDefault } from "@/theme";
 import { clampGen } from "@/utils/clamp-gen";
 import Button from "@/components/Button";
 import GithubSvg from "@/images/github-icon.svg";
@@ -21,7 +21,7 @@ export const NavBar = (props: NavBarProps) => {
         </Link>
 
         <Link
-          href="https://github.com/richhdev/richh-ui"
+          href="https://github.com/richhdev/password-generator"
           target="_blank"
           aria-label="github"
         >
@@ -41,21 +41,12 @@ export const NavBar = (props: NavBarProps) => {
   );
 };
 
-export const navBarHeight = clampGen({
-  minFontSize: "60",
-  maxFontSize: "80",
-  ...clampDefault,
-});
-
 const NavBarOuter = styled.div`
   position: fixed;
   top: 0;
   z-index: 3;
   width: 100%;
-  height: ${navBarHeight};
-  padding: 12px 24px;
-  /* background-color: ${(props) =>
-    props.theme.id === "dark" ? "rgba(0,0,0,0.7)" : "rgba(255,255,255,0.9)"}; */
+  padding: ${size.xs} ${size.lg};
   backdrop-filter: blur(5px);
   color: ${(props) => (props.theme.id === "dark" ? "white" : "black")};
   border-bottom: 1px solid;
@@ -70,15 +61,15 @@ export const NavBarGroup = styled.div`
   gap: 8px;
 `;
 
-const size = clampGen({
+const iconSize = clampGen({
   minFontSize: "37.5",
   maxFontSize: "52",
   ...clampDefault,
 });
 
 const IconButton = styled(Button)`
-  width: ${size};
-  height: ${size};
+  width: ${iconSize};
+  height: ${iconSize};
   padding: 8px;
 
   svg {
@@ -95,8 +86,8 @@ const IconButton = styled(Button)`
 `;
 
 export const IconLink = styled.a`
-  width: ${size};
-  height: ${size};
+  width: ${iconSize};
+  height: ${iconSize};
   padding: 8px;
   border-radius: 6px;
   cursor: pointer;

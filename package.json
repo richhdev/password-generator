@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "clean": "rm -fr .next && rm -fr node_modules",
     "test": "cypress run",
     "cypress:open": "cypress open"
   },

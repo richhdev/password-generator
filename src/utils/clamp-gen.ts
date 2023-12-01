@@ -10,9 +10,8 @@ export function clampGen(options: {
   maxWidth: string;
   root: string;
 }): string {
-  if (Object.values(options).some((value) => !value)) {
-    return "";
-  }
+  if (Object.values(options).some((value) => !value)) return "";
+
   const root = parseInt(options.root, 10);
 
   const minFontSize = convertToRem(options.minFontSize, root);
@@ -20,10 +19,11 @@ export function clampGen(options: {
   const minWidth = convertToRem(options.minWidth, root);
   const maxWidth = convertToRem(options.maxWidth, root);
 
-  if ([minFontSize, maxFontSize, minWidth, maxWidth].some((v) => isNaN(v))) {
+  if (
+    [minFontSize, maxFontSize, minWidth, maxWidth].some((value) => isNaN(value))
+  ) {
     return "";
   }
-
   const slope = (maxFontSize - minFontSize) / (maxWidth - minWidth);
   const yAxisIntersection = toFixed(-minWidth * slope + minFontSize);
 
