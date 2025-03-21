@@ -19,7 +19,7 @@ const ThemeSwitch = ({
           setThemeSwitch(options[nextIndex]);
         }}
       >
-        {themeMap[themeSwitch as keyof typeof themeMap].icon}
+        {themeMap[themeSwitch as keyof typeof themeMap]?.icon}
       </div>
     </>
   );
