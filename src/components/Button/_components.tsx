@@ -51,22 +51,23 @@ export const Inner = styled.button.attrs(() => {})<ButtonProps>`
 
   &:hover {
     background-color: ${(props) =>
-      props.theme.button.activeBackgroundColor ?? "rgba(0,0,0,0.7)"};
+      props.theme.button?.activeBackgroundColor ?? "rgba(0,0,0,0.7)"};
     transition: ${defaultTransition};
   }
 
   &:active {
     background-color: ${(props) =>
-      props.theme.button.activeBackgroundColor ?? "rgba(0,0,0,0.7)"};
+      props.theme.button?.activeBackgroundColor ?? "rgba(0,0,0,0.7)"};
     box-shadow: 0 0 0px 2px
-      ${(props) => props.theme.button.activeBoxShadowColor ?? "rgba(0,0,0,0.5)"};
+      ${(props) =>
+        props.theme.button?.activeBoxShadowColor ?? "rgba(0,0,0,0.5)"};
     transition: ${defaultTransition};
   }
 
   &.isClicked {
     animation: ${(props) =>
         animationClicked(
-          props.theme.button.animationClickedColor ?? `rgba(0, 0, 0, 0.3)`
+          props.theme.button?.animationClickedColor ?? `rgba(0, 0, 0, 0.3)`
         )}
       300ms linear;
   }
@@ -82,7 +83,7 @@ export const Inner = styled.button.attrs(() => {})<ButtonProps>`
 
       &:hover {
         background-color: ${(props) =>
-          props.theme.button.outlineBackgroundColor ?? "rgba(0,0,0,0.1)"};
+          props.theme.button?.outlineBackgroundColor ?? "rgba(0,0,0,0.1)"};
       }
 
       &:active {
@@ -120,7 +121,7 @@ export const Inner = styled.button.attrs(() => {})<ButtonProps>`
 
       &:hover {
         background-color: ${(props) =>
-          props.theme.button.ghostBackgroundColor ?? "rgba(0,0,0,0.1)"};
+          props.theme.button?.ghostBackgroundColor ?? "rgba(0,0,0,0.1)"};
       }
 
       &:active {
