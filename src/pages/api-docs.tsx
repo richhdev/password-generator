@@ -259,7 +259,7 @@ const IntroText = styled.section`
   gap: ${size.sm};
 `;
 
-const CodeBox = styled.div`
+const CodeBox = styled("div")`
   display: block;
   padding: 16px;
   font-family: ${ff.mono};
@@ -294,7 +294,7 @@ const Title = (props: TextProps) => (
   <Text fz={fz.h4Responsive} fw={600} {...props} />
 );
 
-const TableOuter = styled.div`
+const TableOuter = styled("div")`
   width: 100%;
   margin: 0 auto;
   font-family: ${ff.p};
@@ -313,7 +313,7 @@ const TrDesktop = styled(Tr)`
   }
 `;
 
-const Code = styled.span<{
+const Code = styled("span")<{
   secondary?: boolean;
 }>`
   font-family: ${ff.mono};

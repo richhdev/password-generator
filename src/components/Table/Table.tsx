@@ -27,7 +27,7 @@ export const Tr = styled.tr`
   }
 `;
 
-export const Td = styled.td`
+export const Td = styled("td")`
   padding: 12px 24px;
   margin: 0;
   &:not(last-child) {
