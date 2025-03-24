@@ -175,7 +175,7 @@ const LoadingIconOuter = styled.span`
   }
 `;
 
-export const Label = styled.div<ButtonLabelProps>`
+export const Label = styled("div")<ButtonLabelProps>`
   transition: all 150ms ease-out;
 
   /* disabled */

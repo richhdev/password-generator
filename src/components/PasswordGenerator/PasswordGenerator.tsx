@@ -60,7 +60,13 @@ const PasswordGenerator = () => {
 
   return (
     <Outer>
-      <PasswordText id="password" ff={ff.mono} fz={fz.h1Responsive} lh={lh.h1}>
+      <PasswordText
+        as="div"
+        id="password"
+        ff={ff.mono}
+        fz={fz.h1Responsive}
+        lh={lh.h1}
+      >
         {/* &nbsp; */}
         <TypedText
           text={password || `<PasswordGenerator />`}

@@ -25,7 +25,7 @@ export const ButtonGroup = styled.div`
   padding: ${fz.pResponsive};
 `;
 
-export const OptionsContainer = styled.div<{ show: boolean }>`
+export const OptionsContainer = styled("div")<{ show?: boolean }>`
   position: relative;
   z-index: 2;
   padding: 0;
@@ -56,7 +56,7 @@ export const OptionsContainer = styled.div<{ show: boolean }>`
     `}
 `;
 
-export const OptionsGroup = styled.div`
+export const OptionsGroup = styled("div")`
   padding: calc(${fz.h3Responsive});
   transform: scale(0);
   transition: all 300ms ease;
