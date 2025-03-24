@@ -5,12 +5,7 @@ export default function handler(
   request: NextApiRequest,
   response: NextApiResponse
 ) {
-  const options = request.query;
-  const result = generatePassword(options);
-  const statusCode = typeof result === "string" ? 200 : 400;
-  const bodyJson = result
-    ? { password: result }
-    : { error: "At least one option must be set to true" };
-
-  response.status(statusCode).json(bodyJson);
+  const json = generatePassword(request.query);
+  const status = json.hasOwnProperty("error") ? 400 : 200;
+  response.status(status).json(json);
 }
