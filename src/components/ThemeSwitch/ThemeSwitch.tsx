@@ -1,6 +1,9 @@
-import AutoSvg from "./images/auto.svg";
-import LightSvg from "./images/light.svg";
-import DarkSvg from "./images/dark.svg";
+// import AutoSvg from "./images/auto.svg";
+// import LightSvg from "./images/light.svg";
+// import DarkSvg from "./images/dark.svg";
+import IconThemeAuto from "@/icons/IconThemeAuto";
+import IconThemeLight from "@/icons/IconThemeLight";
+import IconThemeDark from "@/icons/IconThemeDark";
 
 const ThemeSwitch = ({
   themeSwitch,
@@ -30,14 +33,14 @@ export default ThemeSwitch;
 const themeMap = {
   auto: {
     id: "auto",
-    icon: <AutoSvg alt="auto" />,
+    icon: <IconThemeAuto alt="auto" />,
   },
   light: {
     id: "light",
-    icon: <LightSvg alt="light" />,
+    icon: <IconThemeLight alt="light" />,
   },
   dark: {
     id: "dark",
-    icon: <DarkSvg alt="dark" />,
+    icon: <IconThemeDark alt="dark" />,
   },
 };

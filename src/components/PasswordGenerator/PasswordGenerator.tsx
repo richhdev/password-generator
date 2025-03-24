@@ -22,7 +22,8 @@ import {
   maxLength,
   validateLength,
 } from "@/utils/generate-password";
-import OptionsIcon from "@/images/options-icon.svg";
+// import OptionsIcon from "@/images/options-icon.svg";
+import IconOptions from "@/icons/IconOptions";
 
 const PasswordGenerator = () => {
   const [password, setPassword] = useState("");
@@ -67,14 +68,12 @@ const PasswordGenerator = () => {
         fz={fz.h1Responsive}
         lh={lh.h1}
       >
-        {/* &nbsp; */}
         <TypedText
           text={password || `<PasswordGenerator />`}
           callback={() => {
             setIsGenerating(false);
           }}
         />
-        {/* &nbsp; */}
       </PasswordText>
 
       <ButtonGroup>
@@ -120,8 +119,8 @@ const PasswordGenerator = () => {
             setShowOptions(!showOptions);
           }}
         >
-          <OptionsIcon />
-          {/* <GithubSvg /> */}
+          {/* <OptionsIcon /> */}
+          <IconOptions />
         </Button>
       </ButtonGroup>
 

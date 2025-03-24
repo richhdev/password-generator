@@ -4,42 +4,10 @@ import { useRouter } from "next/router";
 import { size, clampDefault } from "@/theme";
 import { clampGen } from "@/utils/clamp-gen";
 import Button from "@/components/Button";
-import GithubSvg from "@/images/github-icon.svg";
+// import GithubSvg from "@/images/github-icon.svg";
 import ThemeSwitch from "@/components/ThemeSwitch";
 import { NavBarProps } from "./types";
-
-// function NavBar(props: NavBarProps) {
-//   const { pathname } = useRouter();
-
-//   return (
-//     <NavBarOuter>
-//       <NavBarGroup>
-//         <Link href={pathname == "/api-docs" ? "/" : "/api-docs"}>
-//           <Button ghost>
-//             {pathname == "/api-docs" ? "Password Generator" : "API Docs"}
-//           </Button>
-//         </Link>
-
-//         <Link
-//           href="https://github.com/richhdev/password-generator"
-//           target="_blank"
-//           aria-label="github"
-//         >
-//           <IconButton ghost>
-//             <GithubSvg role="img" alt="github" />
-//           </IconButton>
-//         </Link>
-
-//         <IconLink>
-//           <ThemeSwitch
-//             themeSwitch={props.themeSwitch}
-//             setThemeSwitch={props.setThemeSwitch}
-//           />
-//         </IconLink>
-//       </NavBarGroup>
-//     </NavBarOuter>
-//   );
-// }
+import IconGithub from "@/icons/iconGithub";
 
 function NavBar(props: NavBarProps) {
   const { pathname } = useRouter();
@@ -52,16 +20,17 @@ function NavBar(props: NavBarProps) {
             {pathname == "/api-docs" ? "Password Generator" : "API Docs"}
           </Button>
         </Link>
+
         <Link
           href="https://github.com/richhdev/password-generator"
           target="_blank"
           aria-label="github"
         >
           <IconButton ghost>
-            github
-            {/* <GithubSvg role="img" alt="github" /> */}
+            <IconGithub />
           </IconButton>
         </Link>
+
         <IconLink>
           <ThemeSwitch
             themeSwitch={props.themeSwitch}
