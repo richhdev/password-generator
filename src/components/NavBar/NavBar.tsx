@@ -20,7 +20,6 @@ function NavBar(props: NavBarProps) {
             {pathname == "/api-docs" ? "Password Generator" : "API Docs"}
           </Button>
         </Link>
-
         <Link
           href="https://github.com/richhdev/password-generator"
           target="_blank"
@@ -30,7 +29,6 @@ function NavBar(props: NavBarProps) {
             <IconGithub />
           </IconButton>
         </Link>
-
         <IconLink>
           <ThemeSwitch
             themeSwitch={props.themeSwitch}
