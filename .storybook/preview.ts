@@ -1,4 +1,5 @@
 import type { Preview } from "@storybook/react";
+import { withThemeProvider } from "../src/stories/withThemeProvider"; // Adjust the path
 
 const preview: Preview = {
   parameters: {
@@ -13,3 +14,5 @@ const preview: Preview = {
 };
 
 export default preview;
+
+export const decorators = [withThemeProvider];

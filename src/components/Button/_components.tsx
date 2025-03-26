@@ -1,7 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 import { ff, fz, clampDefault } from "@/theme/text";
 import { clampGen } from "@/utils/clamp-gen";
-// import LoadingSvg from "./images/spinner.svg";
 import IconSpinner from "@/icons/IconSpinner";
 import {
   type ButtonProps,
@@ -159,7 +158,6 @@ export const Inner = styled.button.attrs(() => {})<ButtonProps>`
 
 export const LoadingIcon = () => (
   <LoadingIconOuter>
-    {/* <LoadingSvg /> */}
     <IconSpinner />
   </LoadingIconOuter>
 );
@@ -178,7 +176,8 @@ const LoadingIconOuter = styled.span`
   }
 `;
 
-export const Label = styled("div")<ButtonLabelProps>`
+export const Label = styled("span")<ButtonLabelProps>`
+  display: block;
   transition: all 150ms ease-out;
 
   /* disabled */

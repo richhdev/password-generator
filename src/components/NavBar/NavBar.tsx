@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { size, clampDefault } from "@/theme";
 import { clampGen } from "@/utils/clamp-gen";
 import Button from "@/components/Button";
-// import GithubSvg from "@/images/github-icon.svg";
 import ThemeSwitch from "@/components/ThemeSwitch";
 import { NavBarProps } from "./types";
 import IconGithub from "@/icons/iconGithub";
@@ -13,7 +12,7 @@ function NavBar(props: NavBarProps) {
   const { pathname } = useRouter();
 
   return (
-    <NavBarOuter>
+    <NavBarOuter className={props.className}>
       <NavBarGroup>
         <Link href={pathname == "/api-docs" ? "/" : "/api-docs"}>
           <Button ghost>
@@ -42,7 +41,7 @@ function NavBar(props: NavBarProps) {
 
 export default NavBar;
 
-const NavBarOuter = styled.div`
+const NavBarOuter = styled("div")`
   position: fixed;
   top: 0;
   left: 0;

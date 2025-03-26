@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ff, fz, lh } from "../../theme/text";
 import { TextProps } from "./types";
 
@@ -99,3 +99,21 @@ export const I = (props: TextProps) => (
 export const U = (props: TextProps) => (
   <Text as="u" css={"text-decoration: underline"} {...props} />
 );
+
+export const Code = styled("span")<{
+  secondary?: boolean;
+}>`
+  font-family: ${ff.mono};
+  border-radius: 3px;
+  padding: 0px 8px 2px;
+  background-color: ${(props) =>
+    props.theme.id == "dark"
+      ? "rgba(100, 170, 238, 0.7)"
+      : "rgba(100, 170, 238, 0.3)"};
+  ${(props) =>
+    props.secondary &&
+    css`
+      background-color: ${(props) =>
+        props.theme.id == "dark" ? "rgba(255,255,255,0.3)" : "rgba(1,1,1,0.1)"};
+    `}
+`;
