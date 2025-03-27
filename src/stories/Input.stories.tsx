@@ -9,6 +9,7 @@ const meta = {
     layout: "centered",
   },
   argTypes: {},
+  tags: ["autodocs"],
 } satisfies Meta<typeof Input>;
 
 export default meta;
@@ -16,7 +17,7 @@ export default meta;
 export const Default = (args: InputProps) => {
   return (
     <div style={{ maxWidth: "300px" }}>
-      <Input placeholder="✏️" {...args} />
+      <Input {...args} />
     </div>
   );
 };

@@ -9,6 +9,7 @@ const meta = {
     layout: "centered",
   },
   argTypes: {},
+  tags: ["autodocs"],
 } satisfies Meta<typeof TypedText>;
 
 export default meta;

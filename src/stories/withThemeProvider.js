@@ -1,7 +1,8 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { themeLight } from "../theme/"; // Adjust the path
+import { themeLight } from "../theme/";
 import "./styles.css";
+
 export const withThemeProvider = (Story, context) => {
   return (
     <Outer>
@@ -13,8 +14,8 @@ export const withThemeProvider = (Story, context) => {
 };
 
 const Outer = styled("div")`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

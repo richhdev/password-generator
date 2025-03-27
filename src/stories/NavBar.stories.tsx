@@ -15,7 +15,6 @@ export default meta;
 export const Default = () => {
   return (
     <NavBar
-      className="dude"
       themeSwitch="light"
       setThemeSwitch={() => {}}
       style={{ position: "absolute" }}

@@ -16,6 +16,7 @@ const meta = {
 
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {},
+  tags: ["autodocs"],
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -122,7 +123,7 @@ const Item = styled("div")`
   padding: 30px;
 `;
 
-const IconContainer = styled.div`
+const IconContainer = styled("div")`
   width: 40px;
   height: 40px;
   padding: 10px;
