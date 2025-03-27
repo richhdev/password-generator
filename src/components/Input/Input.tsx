@@ -6,15 +6,17 @@ import { InputProps } from "./types";
 const Input = (props: InputProps) => {
   return (
     <InputOuter
-      type={props.type || "text"}
       className={props.className}
       defaultValue={props.defaultValue}
       disabled={props.disabled}
+      id={props.id}
       isValid={props.isValid}
       isInvalid={props.isInvalid}
+      onBlur={props.onBlur}
       onChange={props.onChange}
       placeholder={props.placeholder}
       style={props.style}
+      type={props.type || "text"}
     />
   );
 };
