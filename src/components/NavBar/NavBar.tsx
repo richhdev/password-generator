@@ -28,12 +28,10 @@ function NavBar(props: NavBarProps) {
             <IconGithub />
           </IconButton>
         </Link>
-        <IconLink>
-          <ThemeSwitch
-            themeSwitch={props.themeSwitch}
-            setThemeSwitch={props.setThemeSwitch}
-          />
-        </IconLink>
+        <ThemeSwitch
+          themeSwitch={props.themeSwitch}
+          setThemeSwitch={props.setThemeSwitch}
+        />
       </NavBarGroup>
     </NavBarOuter>
   );
@@ -68,7 +66,7 @@ const iconSize = clampGen({
   ...clampDefault,
 });
 
-const IconButton = styled(Button)`
+export const IconButton = styled(Button)`
   width: ${iconSize};
   height: ${iconSize};
   padding: 8px;
@@ -86,7 +84,7 @@ const IconButton = styled(Button)`
   }
 `;
 
-const IconLink = styled.a`
+export const IconLink = styled("a")`
   width: ${iconSize};
   height: ${iconSize};
   padding: 8px;

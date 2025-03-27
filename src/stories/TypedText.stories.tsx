@@ -1,5 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import Checkbox from "@/components/Checkbox";
+import type { Meta } from "@storybook/react";
 import TypedText from "@/components/TypedText";
 import Text from "@/components/Text";
 
@@ -13,8 +12,6 @@ const meta = {
 } satisfies Meta<typeof TypedText>;
 
 export default meta;
-
-type Story = StoryObj<typeof meta>;
 
 export const Default = (args: { text: string }) => (
   <Text>

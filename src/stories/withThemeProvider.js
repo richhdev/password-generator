@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { themeLight, themeDark } from "../theme/"; // Adjust the path
+import { themeLight } from "../theme/"; // Adjust the path
 import "./styles.css";
 export const withThemeProvider = (Story, context) => {
   return (

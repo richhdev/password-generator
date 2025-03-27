@@ -1,7 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta } from "@storybook/react";
 import Input from "@/components/Input";
-import styled from "styled-components";
-import { InputProps } from "@/components/Input/types";
+import { InputProps } from "@/components/Input";
 
 const meta = {
   title: "Example/Input",
@@ -14,16 +13,10 @@ const meta = {
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
-
 export const Default = (args: InputProps) => {
   return (
-    <Outer>
+    <div style={{ maxWidth: "300px" }}>
       <Input placeholder="✏️" {...args} />
-    </Outer>
+    </div>
   );
 };
-
-const Outer = styled("div")`
-  max-width: 300px;
-`;

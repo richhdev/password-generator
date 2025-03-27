@@ -1,9 +1,7 @@
-// import AutoSvg from "./images/auto.svg";
-// import LightSvg from "./images/light.svg";
-// import DarkSvg from "./images/dark.svg";
 import IconThemeAuto from "@/icons/IconThemeAuto";
 import IconThemeLight from "@/icons/IconThemeLight";
 import IconThemeDark from "@/icons/IconThemeDark";
+import { IconButton } from "../NavBar/NavBar";
 
 const ThemeSwitch = ({
   themeSwitch,
@@ -13,18 +11,18 @@ const ThemeSwitch = ({
   setThemeSwitch: Function;
 }) => {
   return (
-    <>
-      <div
-        onClick={() => {
-          const options = [...Object.keys(themeMap)];
-          const index = options.findIndex((item) => item === themeSwitch);
-          const nextIndex = index === options.length - 1 ? 0 : index + 1;
-          setThemeSwitch(options[nextIndex]);
-        }}
-      >
-        {themeMap[themeSwitch as keyof typeof themeMap]?.icon}
-      </div>
-    </>
+    <IconButton
+      ghost
+      onClick={() => {
+        const options = [...Object.keys(themeMap)];
+        const index = options.findIndex((item) => item === themeSwitch);
+        const nextIndex = index === options.length - 1 ? 0 : index + 1;
+        setThemeSwitch(options[nextIndex]);
+      }}
+      style={{ padding: "8px" }}
+    >
+      {themeMap[themeSwitch as keyof typeof themeMap]?.icon}
+    </IconButton>
   );
 };
 

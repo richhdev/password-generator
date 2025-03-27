@@ -1,5 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import styled from "styled-components";
+import type { Meta } from "@storybook/react";
 import PasswordGenerator from "@/components/PasswordGenerator";
 
 const meta = {
@@ -13,18 +12,10 @@ const meta = {
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
-
 export const Default = () => {
   return (
-    <Outer>
+    <div>
       <PasswordGenerator />
-    </Outer>
+    </div>
   );
 };
-
-const Outer = styled("div")`
-  width: 100%;
-  max-width: 600px;
-  padding: 30px;
-`;

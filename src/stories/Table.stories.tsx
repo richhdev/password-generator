@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import Table, { Thead, Tbody, Td, Tr } from "@/components/Table";
+import type { Meta } from "@storybook/react";
+import Table, { Tbody, Td, Tr } from "@/components/Table";
 import Text, { Strong } from "@/components/Text";
 import { fz } from "@/theme";
 import styled from "styled-components";
@@ -15,8 +15,6 @@ const meta = {
 } satisfies Meta<typeof Table>;
 
 export default meta;
-
-type Story = StoryObj<typeof meta>;
 
 export const Default = () => {
   return (

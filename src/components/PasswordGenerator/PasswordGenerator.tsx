@@ -102,8 +102,8 @@ const PasswordGenerator = () => {
               })
               .then((data) => {
                 setPassword(data["password"]);
-              })
-              .catch((error) => {});
+              });
+            // .catch((error) => {});
           }}
           disabled={errorOption}
           loading={isGenerating}
