@@ -1,5 +1,5 @@
 import type { Preview } from "@storybook/react";
-import { withThemeProvider } from "../src/stories/withThemeProvider"; // Adjust the path
+import { withThemeProvider } from "./withThemeProvider";
 
 const preview: Preview = {
   parameters: {
