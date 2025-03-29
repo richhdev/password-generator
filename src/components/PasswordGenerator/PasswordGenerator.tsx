@@ -24,6 +24,7 @@ import {
 } from "@/utils/generate-password";
 // import OptionsIcon from "@/images/options-icon.svg";
 import IconOptions from "@/icons/IconOptions";
+import { copyToClipboard } from "@/utils/copy-to-clipboard";
 
 const PasswordGenerator = () => {
   const [password, setPassword] = useState("");
@@ -45,13 +46,23 @@ const PasswordGenerator = () => {
 
   useEffect(() => {
     if (!password) return;
-    navigator.clipboard.writeText(password);
-    setClipboardMsg(true);
 
-    if (clipMsgTimeout.current) clearTimeout(clipMsgTimeout.current);
-    clipMsgTimeout.current = setTimeout(() => {
-      setClipboardMsg(false);
-    }, 2000);
+    async function handleCopy() {
+      const copySuccess = await copyToClipboard(password);
+
+      if (copySuccess) {
+        alert("Text copied");
+        setClipboardMsg(true);
+        if (clipMsgTimeout.current) clearTimeout(clipMsgTimeout.current);
+        clipMsgTimeout.current = setTimeout(() => {
+          setClipboardMsg(false);
+        }, 1500);
+      } else {
+        alert("Failed to copy text.");
+      }
+    }
+
+    handleCopy();
   }, [password]);
 
   useEffect(() => {
