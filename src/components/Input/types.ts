@@ -1,24 +1,7 @@
-export type InputProps = {
-  className?: string;
-  defaultValue?: string | number;
-  disabled?: boolean;
-  id?: string;
-  initalFocus?: boolean;
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   isInvalid?: boolean;
   isValid?: boolean;
-  max?: number;
-  maxlength?: number;
-  min?: number;
-  minlength?: number;
-  name?: string;
-  onBlur?: Function;
-  onChange?: Function;
-  pattern?: string | number;
-  placeholder?: string | number;
-  readOnly?: boolean;
-  required?: boolean;
-  step?: number;
-  style?: React.CSSProperties;
   type?:
     | "text"
     | "number"
@@ -31,5 +14,4 @@ export type InputProps = {
     | "search"
     | "url"
     | "tel";
-  value?: string | number;
-};
+}

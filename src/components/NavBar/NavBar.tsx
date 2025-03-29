@@ -4,46 +4,45 @@ import { useRouter } from "next/router";
 import { size, clampDefault } from "@/theme";
 import { clampGen } from "@/utils/clamp-gen";
 import Button from "@/components/Button";
-import GithubSvg from "@/images/github-icon.svg";
 import ThemeSwitch from "@/components/ThemeSwitch";
 import { NavBarProps } from "./types";
+import IconGithub from "@/icons/iconGithub";
 
-export const NavBar = (props: NavBarProps) => {
+function NavBar(props: NavBarProps) {
   const { pathname } = useRouter();
 
   return (
-    <NavBarOuter>
+    <NavBarOuter className={props.className}>
       <NavBarGroup>
         <Link href={pathname == "/api-docs" ? "/" : "/api-docs"}>
           <Button ghost>
             {pathname == "/api-docs" ? "Password Generator" : "API Docs"}
           </Button>
         </Link>
-
         <Link
           href="https://github.com/richhdev/password-generator"
           target="_blank"
           aria-label="github"
         >
           <IconButton ghost>
-            <GithubSvg role="img" alt="github" />
+            <IconGithub />
           </IconButton>
         </Link>
-
-        <IconLink>
-          <ThemeSwitch
-            themeSwitch={props.themeSwitch}
-            setThemeSwitch={props.setThemeSwitch}
-          />
-        </IconLink>
+        <ThemeSwitch
+          themeSwitch={props.themeSwitch}
+          setThemeSwitch={props.setThemeSwitch}
+        />
       </NavBarGroup>
     </NavBarOuter>
   );
-};
+}
 
-const NavBarOuter = styled.div`
+export default NavBar;
+
+const NavBarOuter = styled("div")`
   position: fixed;
   top: 0;
+  left: 0;
   z-index: 3;
   width: 100%;
   padding: ${size.xs} ${size.lg};
@@ -54,7 +53,7 @@ const NavBarOuter = styled.div`
     props.theme.id === "dark" ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.2)"};
 `;
 
-export const NavBarGroup = styled.div`
+const NavBarGroup = styled.div`
   margin-left: auto;
   display: flex;
   justify-content: flex-end;
@@ -67,7 +66,7 @@ const iconSize = clampGen({
   ...clampDefault,
 });
 
-const IconButton = styled(Button)`
+export const IconButton = styled(Button)`
   width: ${iconSize};
   height: ${iconSize};
   padding: 8px;
@@ -85,7 +84,7 @@ const IconButton = styled(Button)`
   }
 `;
 
-export const IconLink = styled.a`
+export const IconLink = styled("a")`
   width: ${iconSize};
   height: ${iconSize};
   padding: 8px;

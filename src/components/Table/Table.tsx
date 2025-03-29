@@ -36,7 +36,7 @@ export const Td = styled("td")`
   }
 `;
 
-const TableOuter = styled.table<TableProps>`
+const TableOuter = styled("table")<TableProps>`
   /* border-collapse: collapse; */
   border-spacing: 0;
 

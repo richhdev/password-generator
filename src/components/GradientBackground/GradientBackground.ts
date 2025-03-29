@@ -1,5 +1,4 @@
 import styled, { css, keyframes } from "styled-components";
-import { color } from "@/theme/color";
 
 const gradientBg = keyframes`
   0% {

@@ -165,7 +165,6 @@ function hasCharFromSet(str: string, chars: string): boolean {
   // if (chars.length > str.length) return false; // chars cannot be longer than str
 
   for (let i = 0; i < chars.length; i++) {
-    console.log("find:", chars[i], "result:", str.includes(chars[i]));
     if (str.includes(chars[i])) {
       return true;
     }

@@ -6,6 +6,7 @@ export interface ButtonProps
   loading?: boolean;
   outline?: boolean;
   target?: "_self" | "_blank" | "_parent" | "_top";
+  children: any;
 }
 
 export type ButtonOuterProps = {
