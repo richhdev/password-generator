@@ -3,7 +3,7 @@ export interface ButtonProps
   as?: "button" | "a" | "input";
   ghost?: boolean;
   href?: string;
-  loading?: boolean;
+  $loading?: boolean;
   outline?: boolean;
   target?: "_self" | "_blank" | "_parent" | "_top";
   children: any;

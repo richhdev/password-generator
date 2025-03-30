@@ -20,6 +20,7 @@ const ThemeSwitch = ({
         setThemeSwitch(options[nextIndex]);
       }}
       style={{ padding: "8px" }}
+      aria-label="Theme"
     >
       {themeMap[themeSwitch as keyof typeof themeMap]?.icon}
     </IconButton>

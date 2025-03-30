@@ -34,7 +34,7 @@ export const Loading: Story = {
   args: {
     title: "loading",
     children: "Loading",
-    loading: true,
+    $loading: true,
   },
 };
 
@@ -66,7 +66,7 @@ export const Themes = () => {
             <Button>Button</Button>
           </Item>
           <Item>
-            <Button loading>Loading</Button>
+            <Button $loading>Loading</Button>
           </Item>
           <Item>
             <Button outline>Outline</Button>
@@ -85,7 +85,7 @@ export const Themes = () => {
             <Button>Button</Button>
           </Item>
           <Item>
-            <Button loading>Loading</Button>
+            <Button $loading>Loading</Button>
           </Item>
           <Item>
             <Button outline>Outline</Button>
