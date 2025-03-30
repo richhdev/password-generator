@@ -15,7 +15,7 @@ const Button = (props: ButtonProps) => {
 
   return (
     <Outer
-      loading={props.loading === true ? true : undefined}
+      $loading={props.$loading === true ? true : undefined}
       disabled={props.disabled}
     >
       <Inner
@@ -26,15 +26,15 @@ const Button = (props: ButtonProps) => {
         ghost={props.ghost}
         href={props.href}
         id={props.id}
-        loading={props.loading === true ? true : undefined}
+        $loading={props.$loading === true ? true : undefined}
         onClick={(event: MouseEvent<HTMLButtonElement>) => {
-          if (!props.loading || !props.disabled) setIsClicked(true);
+          if (!props.$loading || !props.disabled) setIsClicked(true);
           if (props.onClick) props.onClick(event);
         }}
         outline={props.outline}
         target={props.target}
       >
-        {props.loading && <LoadingIcon />}
+        {props.$loading && <LoadingIcon />}
         {props.children && (
           <Label disabled={props.disabled}>{props.children}</Label>
         )}

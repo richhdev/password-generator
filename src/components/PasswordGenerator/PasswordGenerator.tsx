@@ -22,7 +22,6 @@ import {
   maxLength,
   validateLength,
 } from "@/utils/generate-password";
-// import OptionsIcon from "@/images/options-icon.svg";
 import IconOptions from "@/icons/IconOptions";
 
 const PasswordGenerator = () => {
@@ -42,34 +41,67 @@ const PasswordGenerator = () => {
   const [includeSpecial, setIncludeSpecial] = useState(true);
 
   const [errorOption, setErrorOption] = useState(false);
+  const [errorFetch, setErrorFetch] = useState(false);
 
+  // copy password to clipboard
   useEffect(() => {
-    if (!password) return;
+    if (!password || !navigator.clipboard) return;
+
     navigator.clipboard.writeText(password);
     setClipboardMsg(true);
-
     if (clipMsgTimeout.current) clearTimeout(clipMsgTimeout.current);
     clipMsgTimeout.current = setTimeout(() => {
       setClipboardMsg(false);
     }, 2000);
   }, [password]);
 
+  // make sure at least one option is selected
   useEffect(() => {
-    // make sure at least one option is selected
     setErrorOption(!includeLowercase && !includeUppercase && !includeNumbers && !includeSpecial); // prettier-ignore
   }, [includeLowercase, includeUppercase, includeNumbers, includeSpecial]);
+
+  function handleGenerateClick() {
+    setErrorFetch(false);
+    if (errorOption) return;
+
+    setIsGenerating(true);
+
+    // cast values to string as `URLSearchParams` expects strings
+    const options = {
+      length: `${passwordLength}`,
+      lowercase: `${includeLowercase}`,
+      uppercase: `${includeUppercase}`,
+      numbers: `${includeNumbers}`,
+      special: `${includeSpecial}`,
+    };
+
+    const queryString = new URLSearchParams(options).toString();
+
+    fetch(`/api?${queryString}`)
+      .then((response) => {
+        if (response.status === 200) return response.json();
+        if (response.status === 400) setErrorOption(true);
+      })
+      .then((data) => {
+        setPassword(data["password"]);
+      })
+      .catch(() => {
+        setErrorFetch(true);
+      });
+  }
 
   return (
     <Outer>
       <PasswordText
+        className="truncate"
         as="div"
         id="password"
         ff={ff.mono}
-        fz={fz.h1Responsive}
+        fz={passwordLength < 50 ? fz.h1Responsive : fz.h2Responsive}
         lh={lh.h1}
       >
         <TypedText
-          text={password || `<PasswordGenerator />`}
+          text={password || ` Password Generator`}
           callback={() => {
             setIsGenerating(false);
           }}
@@ -80,33 +112,10 @@ const PasswordGenerator = () => {
         <Button
           id="button-generate"
           onClick={() => {
-            if (errorOption) return;
-
-            setIsGenerating(true);
-
-            // cast values to string as `URLSearchParams` expects strings
-            const options = {
-              length: `${passwordLength}`,
-              lowercase: `${includeLowercase}`,
-              uppercase: `${includeUppercase}`,
-              numbers: `${includeNumbers}`,
-              special: `${includeSpecial}`,
-            };
-
-            const queryString = new URLSearchParams(options).toString();
-
-            fetch(`/api?${queryString}`)
-              .then((response) => {
-                if (response.status === 200) return response.json();
-                if (response.status === 400) setErrorOption(true);
-              })
-              .then((data) => {
-                setPassword(data["password"]);
-              });
-            // .catch((error) => {});
+            handleGenerateClick();
           }}
           disabled={errorOption}
-          loading={isGenerating}
+          $loading={isGenerating}
         >
           Generate
         </Button>
@@ -119,7 +128,6 @@ const PasswordGenerator = () => {
             setShowOptions(!showOptions);
           }}
         >
-          {/* <OptionsIcon /> */}
           <IconOptions />
         </Button>
       </ButtonGroup>
@@ -189,12 +197,9 @@ const PasswordGenerator = () => {
       </OptionsContainer>
 
       <MessageContainer>
-        <ClipboardMsg active={clipboardMsg && !errorOption} color="white">
-          Copied to clipboard
-        </ClipboardMsg>
-        <ErrorMsg active={errorOption} color="white">
-          One option must be selected
-        </ErrorMsg>
+        <ClipboardMsg active={clipboardMsg}>Copied to clipboard</ClipboardMsg>
+        <ErrorMsg active={errorOption}>One option must be selected</ErrorMsg>
+        <ErrorMsg active={errorFetch}>Could not fetch the password</ErrorMsg>
       </MessageContainer>
     </Outer>
   );

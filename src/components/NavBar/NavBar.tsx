@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import { size, clampDefault } from "@/theme";
 import { clampGen } from "@/utils/clamp-gen";
 import Button from "@/components/Button";
@@ -9,7 +9,7 @@ import { NavBarProps } from "./types";
 import IconGithub from "@/icons/iconGithub";
 
 function NavBar(props: NavBarProps) {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
 
   return (
     <NavBarOuter className={props.className}>
@@ -22,9 +22,8 @@ function NavBar(props: NavBarProps) {
         <Link
           href="https://github.com/richhdev/password-generator"
           target="_blank"
-          aria-label="github"
         >
-          <IconButton ghost>
+          <IconButton ghost aria-label="github">
             <IconGithub />
           </IconButton>
         </Link>

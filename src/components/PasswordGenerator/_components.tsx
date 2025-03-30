@@ -15,6 +15,8 @@ export const PasswordText = styled(Text)`
   overflow-wrap: anywhere;
   user-select: all;
   min-height: calc(${fz.h1Responsive} * ${lh.h1});
+  max-width: 600px;
+  transition: font-size 300ms ease;
 `;
 
 export const ButtonGroup = styled.div`
@@ -159,8 +161,10 @@ const Msg = styled(Small)<{ active: boolean }>`
 
 export const ClipboardMsg = styled(Msg)`
   background-color: #227551;
+  color: #ffffff;
 `;
 
 export const ErrorMsg = styled(Msg)`
   background-color: #c8193c;
+  color: #ffffff;
 `;
